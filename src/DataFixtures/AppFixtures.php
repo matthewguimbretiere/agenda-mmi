@@ -44,52 +44,52 @@ class AppFixtures extends Fixture
         [
           "name" => "Anglais",
           "year" => 2020, 
-          "compain" => "2020/2021"
+          "campain" => "2020/2021"
         ],
         [
           "name" => "Espagnol",
           "year" => 2020, 
-          "compain" => "2020/2021"
+          "campain" => "2020/2021"
         ],
         [
           "name" => "TIC",
           "year" => 2020, 
-          "compain" => "2020/2021"
+          "campain" => "2020/2021"
         ],
         [
           "name" => "EMN",
           "year" => 2020, 
-          "compain" => "2020/2021"
+          "campain" => "2020/2021"
         ],
         [
           "name" => "Expression",
           "year" => 2020, 
-          "compain" => "2020/2021"
+          "campain" => "2020/2021"
         ],
         [
           "name" => "Audiovisuel",
           "year" => 2020, 
-          "compain" => "2020/2021"
+          "campain" => "2020/2021"
         ],
         [
           "name" => "Algo",
           "year" => 2020, 
-          "compain" => "2020/2021"
+          "campain" => "2020/2021"
         ],
         [
           "name" => "Devweb",
           "year" => 2020, 
-          "compain" => "2020/2021"
+          "campain" => "2020/2021"
         ],
         [
           "name" => "Infographie",
           "year" => 2020, 
-          "compain" => "2020/2021"
+          "campain" => "2020/2021"
         ],
         [
           "name" => "PTUT",
           "year" => 2020, 
-          "compain" => "2020/2021"
+          "campain" => "2020/2021"
         ]
       ];
 
@@ -274,14 +274,18 @@ class AppFixtures extends Fixture
 
     public function loadTeacher(ObjectManager $manager)
     {
-        $i = 0;
+        $nb = 0;
         foreach (self::ENSEIGNANTS as $enseignant) {
-            $i++;
+            $nb++;
+            $nbMod = rand(1,2);
             $theEnseignant = new Group ();
-            $theEnseignant -> setName($enseignant["name"])
-            -> setModules($enseignant["modules"]);
+            $theEnseignant -> setName($enseignant["name"]);
+            for ($i=0; $i <= $nbMod; $i++) { 
+              $module = rand(0,count(self::MODULES));
+              $theEnseignant -> addModule($this->getReference("theModule-$module"));
+            }
             $manager ->persist($theEnseignant);
-            $this -> addReference("theEnseignant-$i",$theEnseignant);
+            $this -> addReference("theEnseignant-$nb",$theEnseignant);
         }
     }
 
@@ -290,10 +294,12 @@ class AppFixtures extends Fixture
         $i = 0;
         foreach (self::MODULES as $module) {
             $i++;
-            $ = new Group ();
-            $ -> set
-            $manager ->persist($);
-            $this -> addReference("-$i",$);
+            $theModule = new Group ();
+            $theModule ->setName($module["name"])
+            ->setYear($module["year"])
+            ->setCampain($module["campain"]);
+            $manager ->persist($theEnseignant);
+            $this -> addReference("theModule-$i",$theModule);
         }
     }
 
