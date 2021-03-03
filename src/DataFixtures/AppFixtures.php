@@ -2,13 +2,13 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
+use App\Entity\Task;
+use App\Entity\User;
 use App\Entity\Group;
 use App\Entity\Module;
-use App\Entity\Task;
 use App\Entity\Teacher;
-use App\Entity\User;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class AppFixtures extends Fixture
 {
@@ -254,6 +254,7 @@ class AppFixtures extends Fixture
             $manager ->persist($theGroup);
             $this -> addReference("theGroup-$i",$theGroup);
         }
+        $manager->flush();
 
     }
 
@@ -269,6 +270,7 @@ class AppFixtures extends Fixture
             ->getRoles($user["roles"]);
             $manager ->persist($theUser);
         }
+        $manager->flush();
         
     }
 
@@ -287,6 +289,7 @@ class AppFixtures extends Fixture
             $manager ->persist($theEnseignant);
             $this -> addReference("theEnseignant-$nb",$theEnseignant);
         }
+        $manager->flush();
     }
 
     public function loadModule(ObjectManager $manager)
@@ -301,6 +304,7 @@ class AppFixtures extends Fixture
             $manager ->persist($theModule);
             $this -> addReference("theModule-$i",$theModule);
         }
+        $manager->flush();
     }
 
     public function loadTask(ObjectManager $manager)
@@ -326,5 +330,6 @@ class AppFixtures extends Fixture
             
             $manager ->persist($theTache);
         }
+        $manager->flush();
     }
 }

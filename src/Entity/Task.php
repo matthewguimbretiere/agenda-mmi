@@ -30,7 +30,7 @@ class Task
     private $teacher;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $deadline;
 
