@@ -188,43 +188,43 @@ class AppFixtures extends Fixture
           "type" => "TP",
           "semester" => "S1",
           "campain" => "2020/2021"
-        ],,
+        ], 
         [
           "name" => "TP2",
           "type" => "TP",
           "semester" => "S1",
           "campain" => "2020/2021"
-        ],,
+        ],
         [
           "name" => "TP3",
           "type" => "TP",
           "semester" => "S1",
           "campain" => "2020/2021"
-        ],,
+        ],
         [
           "name" => "TP4",
           "type" => "TP",
           "semester" => "S1",
           "campain" => "2020/2021"
-        ],,
+        ],
         [
           "name" => "TP1",
           "type" => "TP",
           "semester" => "S3",
           "campain" => "2020/2021"
-        ],,
+        ],
         [
           "name" => "TP2",
           "type" => "TP",
           "semester" => "S3",
           "campain" => "2020/2021"
-        ],,
+        ],
         [
           "name" => "TP3",
           "type" => "TP",
           "semester" => "S3",
           "campain" => "2020/2021"
-        ],,
+        ],
         [
           "name" => "TP4",
           "type" => "TP",
@@ -278,10 +278,10 @@ class AppFixtures extends Fixture
         foreach (self::ENSEIGNANTS as $enseignant) {
             $nb++;
             $nbMod = rand(1,2);
-            $theEnseignant = new Group ();
+            $theEnseignant = new Teacher ();
             $theEnseignant -> setName($enseignant["name"]);
             for ($i=0; $i <= $nbMod; $i++) { 
-              $module = rand(0,count(self::MODULES));
+              $module = rand(1,count(self::MODULES));
               $theEnseignant -> addModule($this->getReference("theModule-$module"));
             }
             $manager ->persist($theEnseignant);
@@ -294,23 +294,37 @@ class AppFixtures extends Fixture
         $i = 0;
         foreach (self::MODULES as $module) {
             $i++;
-            $theModule = new Group ();
+            $theModule = new Module ();
             $theModule ->setName($module["name"])
             ->setYear($module["year"])
             ->setCampain($module["campain"]);
-            $manager ->persist($theEnseignant);
+            $manager ->persist($theModule);
             $this -> addReference("theModule-$i",$theModule);
         }
     }
 
     public function loadTask(ObjectManager $manager)
     {
-        $i = 0;
+        $nb = 0;
         foreach (self::TACHES as $tache) {
-            $i++;
-            $ = new Group ();
-            $ -> set
-            $manager ->persist($);
+            $aEns = rand(1,count(self::ENSEIGNANTS));
+            $aMod = rand(1,count(self::MODULES));
+            $nbGroup = rand(1,3);
+            $nb++;
+            $theTache = new Task ();
+            $theTache -> setDescription($tache["description"])
+            ->setDeadline($tache["deadline"])
+            ->setVisible($tache["visible"])
+            ->setTeacher($this->getReference("theEnseignant-$aEns"))
+            ->setModule($this->getReference("theModule-$aMod"));
+
+            //boucle groupe
+            for ($i=0; $i < $nbGroup; $i++) { 
+              $groupe = rand(1,count(self::GROUPES));
+              $theTache -> addGroupe($this->getReference("theGroup-$groupe"));
+            }
+            
+            $manager ->persist($theTache);
         }
     }
 }
