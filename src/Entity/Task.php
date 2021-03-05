@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\TaskRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TaskRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=TaskRepository::class)
@@ -25,33 +26,33 @@ class Task
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=teacher::class)
+     * @ORM\ManyToOne(targetEntity=Teacher::class)
      */
     private $teacher;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="date")
      */
     private $deadline;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=false)
      */
     private $visible;
 
     /**
-     * @ORM\ManyToMany(targetEntity=group::class)
+     * @ORM\ManyToMany(targetEntity=Group::class)
      */
     private $groupes;
 
     /**
-     * @ORM\ManyToOne(targetEntity=module::class)
+     * @ORM\ManyToOne(targetEntity=Module::class)
      */
     private $module;
 
     public function __construct()
     {
-        $this->module = new ArrayCollection();
+        // $this->module = new ArrayCollection();
         $this->groupes = new ArrayCollection();
     }
 
@@ -84,12 +85,12 @@ class Task
         return $this;
     }
 
-    public function getDeadline(): ?string
+    public function getDeadline(): ?DateTimeInterface
     {
         return $this->deadline;
     }
 
-    public function setDeadline(?string $deadline): self
+    public function setDeadline(\DateTimeInterface $deadline): self
     {
         $this->deadline = $deadline;
 
@@ -132,12 +133,12 @@ class Task
         return $this;
     }
 
-    public function getModule(): ?module
+    public function getModule(): ?Module
     {
         return $this->module;
     }
 
-    public function setModule(?module $module): self
+    public function setModule(?Module $module): self
     {
         $this->module = $module;
 

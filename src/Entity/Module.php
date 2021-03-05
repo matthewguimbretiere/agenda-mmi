@@ -20,7 +20,7 @@ class Module
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=false)
      */
     private $name;
 
@@ -35,7 +35,7 @@ class Module
     private $campain;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Teacher::class, inversedBy="modules")
+     * @ORM\ManyToMany(targetEntity=teacher::class, inversedBy="modules")
      */
     private $teachers;
 

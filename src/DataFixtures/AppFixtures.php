@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Entity\Group;
 use App\Entity\Module;
 use App\Entity\Teacher;
+use DateTime;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -96,52 +97,42 @@ class AppFixtures extends Fixture
       const TACHES = [
         [
             "description" => "Exposé sur les girafes",
-            "deadline" => "05/02/2021",
             "visible" => true
         ],
         [
             "description" => "Soutenance",
-            "deadline" => "29/02/2021",
             "visible" => true
         ],
         [
             "description" => "Court-métrage",
-            "deadline" => "16/02/2021",
             "visible" => true
         ],
         [
             "description" => "Faire l'exo 2",
-            "deadline" => "30/02/2021",
             "visible" => true
         ],
         [
             "description" => "Finir la réalisation",
-            "deadline" => "04/02/2021",
             "visible" => true
         ],
         [
             "description" => "Finir le TP7",
-            "deadline" => "08/02/2021",
             "visible" => false
         ],
         [
             "description" => "Reviser le cours sur la radio",
-            "deadline" => "09/02/2021",
             "visible" => true
         ],
         [
             "description" => "APPRENDRE DES ACTUS ESPAGNOLES",
-            "deadline" => "13/02/2021",
             "visible" => true
         ],
         [
             "description" => "DS JavaScript",
-            "deadline" => "10/02/2021",
             "visible" => true
         ],
         [
             "description" => "Apprendre à faire un débat",
-            "deadline" => "01/02/2021",
             "visible" => true
         ]
       ];
@@ -314,10 +305,11 @@ class AppFixtures extends Fixture
             $aEns = rand(1,count(self::ENSEIGNANTS));
             $aMod = rand(1,count(self::MODULES));
             $nbGroup = rand(1,3);
+            $dateDay = rand(1,28);
             $nb++;
             $theTache = new Task ();
             $theTache -> setDescription($tache["description"])
-            ->setDeadline($tache["deadline"])
+            ->setDeadline(new \DateTime('2020-08-10'))
             ->setVisible($tache["visible"])
             ->setTeacher($this->getReference("theEnseignant-$aEns"))
             ->setModule($this->getReference("theModule-$aMod"));

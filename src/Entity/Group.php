@@ -19,7 +19,7 @@ class Group
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=5, nullable=false)
      */
     private $name;
 
@@ -29,7 +29,7 @@ class Group
     private $type;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=2, nullable=false)
      */
     private $semester;
 

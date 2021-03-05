@@ -47,4 +47,14 @@ class TaskRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+
+    
+    public function getCount(): int
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->select('COUNT(t.id) compteur')
+            ->getQuery();
+        return $qb->getSingleResult();
+    }
 }
