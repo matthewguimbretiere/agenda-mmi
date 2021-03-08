@@ -50,7 +50,7 @@ class TaskRepository extends ServiceEntityRepository
     
 
     
-    public function getCount(): int
+    public function getCount()
     {
         $qb = $this->createQueryBuilder('t')
             ->select('COUNT(t.id) compteur')

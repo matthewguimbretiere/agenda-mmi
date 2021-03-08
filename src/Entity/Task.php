@@ -41,14 +41,14 @@ class Task
     private $visible;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Group::class)
-     */
-    private $groupes;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Module::class)
      */
     private $module;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Group::class, inversedBy="tasks")
+     */
+    private $groupes;
 
     public function __construct()
     {
@@ -109,29 +109,6 @@ class Task
         return $this;
     }
 
-    /**
-     * @return Collection|group[]
-     */
-    public function getGroupes(): Collection
-    {
-        return $this->groupes;
-    }
-
-    public function addGroupe(group $groupe): self
-    {
-        if (!$this->groupes->contains($groupe)) {
-            $this->groupes[] = $groupe;
-        }
-
-        return $this;
-    }
-
-    public function removeGroupe(group $groupe): self
-    {
-        $this->groupes->removeElement($groupe);
-
-        return $this;
-    }
 
     public function getModule(): ?Module
     {
@@ -141,6 +118,30 @@ class Task
     public function setModule(?Module $module): self
     {
         $this->module = $module;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Group[]
+     */
+    public function getGroupes(): Collection
+    {
+        return $this->groupes;
+    }
+
+    public function addGroupe(Group $groupe): self
+    {
+        if (!$this->groupes->contains($groupe)) {
+            $this->groupes[] = $groupe;
+        }
+
+        return $this;
+    }
+
+    public function removeGroupe(Group $groupe): self
+    {
+        $this->groupes->removeElement($groupe);
 
         return $this;
     }

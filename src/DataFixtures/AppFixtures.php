@@ -317,11 +317,14 @@ class AppFixtures extends Fixture
             //boucle groupe
             for ($i=0; $i < $nbGroup; $i++) { 
               $groupe = rand(1,count(self::GROUPES));
+
               $theTache -> addGroupe($this->getReference("theGroup-$groupe"));
             }
             
             $manager ->persist($theTache);
         }
+        dump($manager);
         $manager->flush();
     }
+
 }
