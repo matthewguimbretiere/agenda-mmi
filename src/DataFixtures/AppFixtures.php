@@ -2,17 +2,26 @@
 
 namespace App\DataFixtures;
 
+use DateTime;
 use App\Entity\Task;
 use App\Entity\User;
 use App\Entity\Group;
 use App\Entity\Module;
 use App\Entity\Teacher;
-use DateTime;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 class AppFixtures extends Fixture
 {
+    private $passwordEncoder;
+    // injecter la classe de cryptage dans le service
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     const ENSEIGNANTS = [
         ["name" => "Bernadette Chaulet"],
         ["name" => "François Louët"],
@@ -28,18 +37,16 @@ class AppFixtures extends Fixture
 
     const USERS = [
         [
-            "email" => "blabla@gmail.com",
-            "password" =>"azerty",
-            "name" =>"Admin",
+            "email" => "boss@mmi.edu",
+            "password" =>"boss",
             "roles" =>"ROLE_ADMIN"
         ],
         [
-            "email" =>"bleble@yahoo.fr",
-            "password" =>"qwerty",
-            "name" =>"Editor",
-            "roles" =>"ROLE_EDITOR"
+            "email" =>"marcel@mmi.edu",
+            "password" =>"bouzigue",
+            "roles" =>"ROLE_WRITER"
         ]
-        ];
+    ];
 
     const MODULES = [
         [
@@ -256,9 +263,8 @@ class AppFixtures extends Fixture
             $i++;
             $theUser = new User ();
             $theUser -> setEmail($user["email"])
-            ->setPassword($user["password"])
-            ->setName($user["name"])
-            ->getRoles($user["roles"]);
+            ->setPassword($this->passwordEncoder->encodePassword($theUser,$user["password"]))
+            ->setRoles([$user["roles"]]);
             $manager ->persist($theUser);
         }
         $manager->flush();

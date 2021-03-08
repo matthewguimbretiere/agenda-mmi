@@ -35,7 +35,7 @@ class Module
     private $campain;
 
     /**
-     * @ORM\ManyToMany(targetEntity=teacher::class, inversedBy="modules")
+     * @ORM\ManyToMany(targetEntity=Teacher::class, inversedBy="modules")
      */
     private $teachers;
 

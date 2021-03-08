@@ -17,8 +17,9 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class TaskController extends AbstractController
 {
+   
     /**
-     * @Route("/task", name="task")
+     * @Route("/index", name="index")
      */
     public function index(): Response
     {
@@ -26,11 +27,20 @@ class TaskController extends AbstractController
             'controller_name' => 'TaskController',
         ]);
     }
+    /**
+     * @Route("/admin", name="admin")
+     */
+    public function admin(): Response
+    {
+        return $this->render('task/index.html.twig', [
+            'controller_name' => 'dvvddvd',
+        ]);
+    }
 
     /**
      * @Route("/tasks", name="get_tasks")
      */
-    public function get_tasks( TaskRepository $taskRepository, GroupRepository $groupRepository, EntityManagerInterface $em, ModuleRepository $moduleRepository) {
+    /**public function get_tasks( TaskRepository $taskRepository, GroupRepository $groupRepository, EntityManagerInterface $em, ModuleRepository $moduleRepository) {
 
         //$task = $taskRepository->find(30);
 
@@ -38,5 +48,6 @@ class TaskController extends AbstractController
 
         $tp3 = $groupRepository->findOneBy(['semester' => 'S3', 'name' => 'TP3']);
         dd($tp3->getTasks()->filter(function ($item) {  return $item->getVisible() == false ;}));
-    }
+    }*/
+    
 }
