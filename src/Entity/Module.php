@@ -25,9 +25,9 @@ class Module
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=2, nullable=false)
      */
-    private $year;
+    private $semester;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -61,14 +61,14 @@ class Module
         return $this;
     }
 
-    public function getYear(): ?string
+    public function getSemester(): ?string
     {
-        return $this->year;
+        return $this->semester;
     }
 
-    public function setYear(?string $year): self
+    public function setSemester(?string $semester): self
     {
-        $this->year = $year;
+        $this->semester = $semester;
 
         return $this;
     }

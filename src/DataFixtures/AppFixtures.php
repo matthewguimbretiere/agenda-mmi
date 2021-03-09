@@ -35,71 +35,59 @@ class AppFixtures extends Fixture
         ["name" => "Fabien Rebillier"]
     ];
 
-    const USERS = [
-        [
-            "email" => "boss@mmi.edu",
-            "password" =>"boss",
-            "roles" =>"ROLE_ADMIN"
-        ],
-        [
-            "email" =>"marcel@mmi.edu",
-            "password" =>"bouzigue",
-            "roles" =>"ROLE_WRITER"
-        ]
+    const MODULES = [
+      [
+        "name" => "Anglais",
+        "semester" => "S2", 
+        "campain" => "2020/2021"
+      ],
+      [
+        "name" => "Espagnol",
+        "semester" => "S3", 
+        "campain" => "2020/2021"
+      ],
+      [
+        "name" => "TIC",
+        "semester" => "S4", 
+        "campain" => "2020/2021"
+      ],
+      [
+        "name" => "EMN",
+        "semester" => "S1", 
+        "campain" => "2020/2021"
+      ],
+      [
+        "name" => "Expression",
+        "semester" => "S1", 
+        "campain" => "2020/2021"
+      ],
+      [
+        "name" => "Audiovisuel",
+        "semester" => "S1", 
+        "campain" => "2020/2021"
+      ],
+      [
+        "name" => "Algo",
+        "semester" => "S2", 
+        "campain" => "2020/2021"
+      ],
+      [
+        "name" => "Devweb",
+        "semester" => "S3", 
+        "campain" => "2020/2021"
+      ],
+      [
+        "name" => "Infographie",
+        "semester" => "S3", 
+        "campain" => "2020/2021"
+      ],
+      [
+        "name" => "PTUT",
+        "semester" => "S1", 
+        "campain" => "2020/2021"
+      ]
     ];
 
-    const MODULES = [
-        [
-          "name" => "Anglais",
-          "year" => 2020, 
-          "campain" => "2020/2021"
-        ],
-        [
-          "name" => "Espagnol",
-          "year" => 2020, 
-          "campain" => "2020/2021"
-        ],
-        [
-          "name" => "TIC",
-          "year" => 2020, 
-          "campain" => "2020/2021"
-        ],
-        [
-          "name" => "EMN",
-          "year" => 2020, 
-          "campain" => "2020/2021"
-        ],
-        [
-          "name" => "Expression",
-          "year" => 2020, 
-          "campain" => "2020/2021"
-        ],
-        [
-          "name" => "Audiovisuel",
-          "year" => 2020, 
-          "campain" => "2020/2021"
-        ],
-        [
-          "name" => "Algo",
-          "year" => 2020, 
-          "campain" => "2020/2021"
-        ],
-        [
-          "name" => "Devweb",
-          "year" => 2020, 
-          "campain" => "2020/2021"
-        ],
-        [
-          "name" => "Infographie",
-          "year" => 2020, 
-          "campain" => "2020/2021"
-        ],
-        [
-          "name" => "PTUT",
-          "year" => 2020, 
-          "campain" => "2020/2021"
-        ]
-      ];
 
       const TACHES = [
         [
