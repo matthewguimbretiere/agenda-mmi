@@ -35,6 +35,19 @@ class AppFixtures extends Fixture
         ["name" => "Fabien Rebillier"]
     ];
 
+    const USERS = [
+        [
+            "email" => "boss@mmi.edu",
+            "password" =>"boss",
+            "roles" =>"ROLE_ADMIN"
+        ],
+        [
+            "email" =>"marcel@mmi.edu",
+            "password" =>"bouzigue",
+            "roles" =>"ROLE_WRITER"
+        ]
+    ];
+
     const MODULES = [
       [
         "name" => "Anglais",
@@ -87,8 +100,7 @@ class AppFixtures extends Fixture
         "campain" => "2020/2021"
       ]
     ];
-
-
+    
       const TACHES = [
         [
             "description" => "Exposé sur les girafes",
@@ -284,7 +296,7 @@ class AppFixtures extends Fixture
             $i++;
             $theModule = new Module ();
             $theModule ->setName($module["name"])
-            ->setYear($module["year"])
+            ->setSemester($module["semester"])
             ->setCampain($module["campain"]);
             $manager ->persist($theModule);
             $this -> addReference("theModule-$i",$theModule);

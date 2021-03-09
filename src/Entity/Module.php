@@ -25,7 +25,7 @@ class Module
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=2, nullable=false)
+     * @ORM\Column(type="string", length=2, nullable=true)
      */
     private $semester;
 
