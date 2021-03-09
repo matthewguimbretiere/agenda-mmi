@@ -19,11 +19,6 @@ class TaskRepository extends ServiceEntityRepository
         parent::__construct($registry, Task::class);
     }
 
-    public function findByTp($campain, $semester, $tp)
-    {
-
-    }
-
     // /**
     //  * @return Task[] Returns an array of Task objects
     //  */
@@ -52,14 +47,4 @@ class TaskRepository extends ServiceEntityRepository
         ;
     }
     */
-    
-
-    
-    public function getCount()
-    {
-        $qb = $this->createQueryBuilder('t')
-            ->select('COUNT(t.id) compteur')
-            ->getQuery();
-        return $qb->getSingleResult();
-    }
 }

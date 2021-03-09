@@ -19,6 +19,48 @@ class GroupRepository extends ServiceEntityRepository
         parent::__construct($registry, Group::class);
     }
 
+    /**
+     * Obtenir un groupe par les paramètres donnés
+     *
+     * @param [type] $campain
+     * @param [type] $semester
+     * @param [type] $tp
+     * @return void
+     */
+    public function findByParameters($campain, $semester, $td, $tp)
+    {   
+        // Obtenir l'id de la promo
+        $idPromo = $this->createQueryBuilder('g')
+                    ->andWhere('g.campain = :campain', 'g.semester = :semester', 'g.type = :type')
+                    ->setParameter('campain', $campain)
+                    ->setParameter('semester', $semester)
+                    ->setParameter('type', 'CM')
+                    ->getQuery()
+                    ->getResult();
+        
+        // Obtenir l'id du TD
+        $idTp = $this->createQueryBuilder('g')
+            ->andWhere('g.campain = :campain', 'g.semester = :semester', 'g.name = :tp')
+            ->setParameter('campain', $campain)
+            ->setParameter('semester', $semester)
+            ->setParameter('tp', $tp)
+            ->getQuery()
+            ->getResult();
+
+        // Obtenir l'id du TP
+        $idTd = $this->createQueryBuilder('g')
+            ->andWhere('g.campain = :campain', 'g.semester = :semester', 'g.name = :td')
+            ->setParameter('campain', $campain)
+            ->setParameter('semester', $semester)
+            ->setParameter('td', $td)
+            ->getQuery()
+            ->getResult();
+            
+        $ids = array($idPromo[0], $idTd[0], $idTp[0]);
+        
+        return $ids;
+    }
+
     // /**
     //  * @return Group[] Returns an array of Group objects
     //  */

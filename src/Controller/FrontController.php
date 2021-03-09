@@ -24,12 +24,16 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @Route("/{campain}/{semester}/{tp}", name="front-tp")
+     * @Route("/{campain}/{semester}/{td}/{tp}", name="front-tp")
      */
-    public function agenda(TaskRepository $taskRepository, Request $request)
+    public function agenda($campain, $semester, $td, $tp, TaskRepository $taskRepository, GroupRepository $groupRepository)
     {
+        // Obtenir les ids des tp/td/cm correspondant à l'url
+        $groups = $groupRepository->findByParameters($campain, $semester, $td, $tp);
+        
+        
         return $this->render('front/agenda.html.twig', [
-            'tasks' => $taskRepository->findByTp($request->query->get('campain'), $request->query->get('semester'), $request->query->get('tp'))
+            'groups' => $groups
         ]);
     }
 }

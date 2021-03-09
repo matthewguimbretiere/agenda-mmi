@@ -52,52 +52,52 @@ class AppFixtures extends Fixture
       [
         "name" => "Anglais",
         "semester" => "S2", 
-        "campain" => "2020/2021"
+        "campain" => "2020-2021"
       ],
       [
         "name" => "Espagnol",
         "semester" => "S3", 
-        "campain" => "2020/2021"
+        "campain" => "2020-2021"
       ],
       [
         "name" => "TIC",
         "semester" => "S4", 
-        "campain" => "2020/2021"
+        "campain" => "2020-2021"
       ],
       [
         "name" => "EMN",
         "semester" => "S1", 
-        "campain" => "2020/2021"
+        "campain" => "2020-2021"
       ],
       [
         "name" => "Expression",
         "semester" => "S1", 
-        "campain" => "2020/2021"
+        "campain" => "2020-2021"
       ],
       [
         "name" => "Audiovisuel",
         "semester" => "S1", 
-        "campain" => "2020/2021"
+        "campain" => "2020-2021"
       ],
       [
         "name" => "Algo",
         "semester" => "S2", 
-        "campain" => "2020/2021"
+        "campain" => "2020-2021"
       ],
       [
         "name" => "Devweb",
         "semester" => "S3", 
-        "campain" => "2020/2021"
+        "campain" => "2020-2021"
       ],
       [
         "name" => "Infographie",
         "semester" => "S3", 
-        "campain" => "2020/2021"
+        "campain" => "2020-2021"
       ],
       [
         "name" => "PTUT",
         "semester" => "S1", 
-        "campain" => "2020/2021"
+        "campain" => "2020-2021"
       ]
     ];
     
@@ -149,85 +149,85 @@ class AppFixtures extends Fixture
           "name" => "MMI1",
           "type" => "CM",
           "semester" => "S1",
-          "campain" => "2020/2021"
+          "campain" => "2020-2021"
         ],
         [
           "name" => "MMI2",
           "type" => "CM",
           "semester" => "S3",
-          "campain" => "2020/2021"
+          "campain" => "2020-2021"
         ],
         [
           "name" => "TDA",
           "type" => "TD",
           "semester" => "S1",
-          "campain" => "2020/2021"
+          "campain" => "2020-2021"
         ],
         [
           "name" => "TDB",
           "type" => "TD",
           "semester" => "S1",
-          "campain" => "2020/2021"
+          "campain" => "2020-2021"
         ],
         [
           "name" => "TDA",
           "type" => "TD",
           "semester" => "S3",
-          "campain" => "2020/2021"
+          "campain" => "2020-2021"
         ],
         [
           "name" => "TDB",
           "type" => "TD",
           "semester" => "S3",
-          "campain" => "2020/2021"
+          "campain" => "2020-2021"
         ],
         [
           "name" => "TP1",
           "type" => "TP",
           "semester" => "S1",
-          "campain" => "2020/2021"
+          "campain" => "2020-2021"
         ], 
         [
           "name" => "TP2",
           "type" => "TP",
           "semester" => "S1",
-          "campain" => "2020/2021"
+          "campain" => "2020-2021"
         ],
         [
           "name" => "TP3",
           "type" => "TP",
           "semester" => "S1",
-          "campain" => "2020/2021"
+          "campain" => "2020-2021"
         ],
         [
           "name" => "TP4",
           "type" => "TP",
           "semester" => "S1",
-          "campain" => "2020/2021"
+          "campain" => "2020-2021"
         ],
         [
           "name" => "TP1",
           "type" => "TP",
           "semester" => "S3",
-          "campain" => "2020/2021"
+          "campain" => "2020-2021"
         ],
         [
           "name" => "TP2",
           "type" => "TP",
           "semester" => "S3",
-          "campain" => "2020/2021"
+          "campain" => "2020-2021"
         ],
         [
           "name" => "TP3",
           "type" => "TP",
           "semester" => "S3",
-          "campain" => "2020/2021"
+          "campain" => "2020-2021"
         ],
         [
           "name" => "TP4",
           "type" => "TP",
           "semester" => "S3",
-          "campain" => "2020/2021"
+          "campain" => "2020-2021"
         ]
       ]; 
     public function load(ObjectManager $manager)
@@ -321,15 +321,13 @@ class AppFixtures extends Fixture
             ->setModule($this->getReference("theModule-$aMod"));
 
             //boucle groupe
-            for ($i=0; $i < $nbGroup; $i++) { 
+            for ($i=1; $i <= $nbGroup; $i++) { 
               $groupe = rand(1,count(self::GROUPES));
-
               $theTache -> addGroupe($this->getReference("theGroup-$groupe"));
             }
             
             $manager ->persist($theTache);
         }
-        dump($manager);
         $manager->flush();
     }
 
