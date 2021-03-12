@@ -24,16 +24,33 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @Route("/{campain}/{semester}/{td}/{tp}", name="front-tp")
+     * @Route("/{campain}/{semester}/{td}/{tp}", name="front-tp-all")
+     * @Route("/{campain}/{semester}/{td}", name="front-td-unique")
+     * @Route("/{campain}/{semester}/{tp}", name="front-tp-unique")
+     * @Route("/{campain}/{semester}", name="front-cm-unique")
      */
-    public function agenda($campain, $semester, $td, $tp, TaskRepository $taskRepository, GroupRepository $groupRepository)
+    public function agenda($campain, $semester, $td = null, $tp = null, TaskRepository $taskRepository, GroupRepository $groupRepository)
     {
-        // Obtenir les ids des tp/td/cm correspondant à l'url
-        $groups = $groupRepository->findByParameters($campain, $semester, $td, $tp);
+        $results = [];
         
+        // Si on demande tout
+        if( $td != null && $tp != null ) {
+            $results[] = $groupRepository->findByCm( $campain, $semester );
+            $results[] = $groupRepository->findByTp( $campain, $semester, $tp);
+            $results[] = $groupRepository->findByTd( $campain, $semester, $td);
+        // Si on demande que les Tp
+        } elseif ( $td == null && $tp != null ) {
+            $results[] = $groupRepository->findByTp( $campain, $semester, $tp);
+        // Si on demande que les Td
+        } elseif ( $tp == null && $td != null ) {
+            $results[] = $groupRepository->findByTd( $campain, $semester, $td);
+        // Si on demande que les CM
+        } else {
+            $results[] = $groupRepository->findByCm( $campain, $semester );
+        }
         
         return $this->render('front/agenda.html.twig', [
-            'groups' => $groups
+            'groups' => $results
         ]);
     }
 }

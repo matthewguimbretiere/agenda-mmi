@@ -27,7 +27,7 @@ class GroupRepository extends ServiceEntityRepository
      * @param [type] $tp
      * @return void
      */
-    public function findByParameters($campain, $semester, $td, $tp)
+    public function findByCm($campain, $semester)
     {   
         // Obtenir l'id de la promo
         $idPromo = $this->createQueryBuilder('g')
@@ -36,29 +36,35 @@ class GroupRepository extends ServiceEntityRepository
                     ->setParameter('semester', $semester)
                     ->setParameter('type', 'CM')
                     ->getQuery()
-                    ->getResult();
+                    ->getResult();            
         
-        // Obtenir l'id du TD
-        $idTp = $this->createQueryBuilder('g')
-            ->andWhere('g.campain = :campain', 'g.semester = :semester', 'g.name = :tp')
-            ->setParameter('campain', $campain)
-            ->setParameter('semester', $semester)
-            ->setParameter('tp', $tp)
-            ->getQuery()
-            ->getResult();
+        return $idPromo;
+    }
 
-        // Obtenir l'id du TP
+    public function findByTd($campain, $semester, $td) {
+        // Obtenir l'id du TD
         $idTd = $this->createQueryBuilder('g')
-            ->andWhere('g.campain = :campain', 'g.semester = :semester', 'g.name = :td')
-            ->setParameter('campain', $campain)
-            ->setParameter('semester', $semester)
-            ->setParameter('td', $td)
-            ->getQuery()
-            ->getResult();
-            
-        $ids = array($idPromo[0], $idTd[0], $idTp[0]);
+        ->andWhere('g.campain = :campain', 'g.semester = :semester', 'g.name = :td')
+        ->setParameter('campain', $campain)
+        ->setParameter('semester', $semester)
+        ->setParameter('td', $td)
+        ->getQuery()
+        ->getResult();
         
-        return $ids;
+        return $idTd;
+    }
+
+    public function findByTp($campain, $semester, $tp) {
+        // Obtenir l'id du TP
+        $idTp = $this->createQueryBuilder('g')
+        ->andWhere('g.campain = :campain', 'g.semester = :semester', 'g.name = :tp')
+        ->setParameter('campain', $campain)
+        ->setParameter('semester', $semester)
+        ->setParameter('tp', $tp)
+        ->getQuery()
+        ->getResult();
+
+        return $idTp;
     }
 
     // /**

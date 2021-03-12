@@ -10,10 +10,11 @@
 
 <div class="example-wrapper">
 {% for group in groups %}
-    <h1>{{ group.name }}</h1>
+    <h1>{{ group.0.name }}</h1>
     <ul>
-    {% for task in group.tasks %}
+    {% for task in group.0.tasks %}
         <li>{{ task.description }}</li>
+        {{ task.teacher.name }}
     {% endfor %}
     </ul>
 {% endfor %}
