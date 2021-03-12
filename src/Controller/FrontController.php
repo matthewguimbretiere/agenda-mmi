@@ -22,11 +22,17 @@ class FrontController extends AbstractController
         $Annees = $groupRepository->findYear();
         $TPs = [];
         foreach ($Annees as $Annee) {
-            dd($Annee.'semester');
-            $TPs[] = $groupRepository->findBySAC($Annee['semester'], $Annee['campain']);
+            $TPs['TP'] = $groupRepository->findBySAC($Annee->getSemester(), $Annee->getCampain());
         }
 
-        dd($TPs);
+        $Liens = [];
+        foreach ($TPs as $semesters) {
+            foreach ($semesters as $tp) {
+                $Liens[] = $liensRepository->findBy(["TP"=>$tp->getId()]);
+            }
+        }
+
+        dd($Liens);
 
         return $this->render('front/index.html.twig', [
             'groupes' => $groupRepository->findYear(),

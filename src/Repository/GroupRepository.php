@@ -81,13 +81,12 @@ class GroupRepository extends ServiceEntityRepository
     public function findBySAC($semester, $campain) {
         // Obtenir les TP en fonction du semestre et de la campagne
         $Tps = $this->createQueryBuilder('g')
-        ->andWhere('g.campain = :campain', 'g.semester = :semester')
+        ->andWhere('g.campain = :campain', 'g.semester = :semester', 'g.type = :type')
         ->setParameter('campain', $campain)
         ->setParameter('semester', $semester)
+        ->setParameter('type', "TP")
         ->getQuery()
         ->getResult();
-
-        dd($Tps);
         
         return $Tps;
     }
