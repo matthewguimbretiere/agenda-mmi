@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\GroupRepository;
+use App\Repository\LiensRepository;
 use App\Repository\ModuleRepository;
 use App\Repository\TaskRepository;
 use App\Repository\TeacherRepository;
@@ -16,10 +17,19 @@ class FrontController extends AbstractController
     /**
      * @Route("/", name="front-index")
      */
-    public function index(GroupRepository $groupRepository): Response
+    public function index(GroupRepository $groupRepository, LiensRepository $liensRepository): Response
     {
+        $Annees = $groupRepository->findYear();
+        $TPs = [];
+        foreach ($Annees as $Annee) {
+            dd($Annee);
+            $TPs[] = $groupRepository->findBySAC($Annee['semester'], $Annee['campain']);
+        }
+
+        dd($TPs);
+
         return $this->render('front/index.html.twig', [
-            'groupes' => $groupRepository->findAll()  
+            'groupes' => $groupRepository->findYear(),
         ]);
     }
 

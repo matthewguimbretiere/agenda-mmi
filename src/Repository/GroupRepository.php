@@ -67,6 +67,31 @@ class GroupRepository extends ServiceEntityRepository
         return $idTp;
     }
 
+    public function findYear() {
+        //Recuperer le nom(bre) des années
+        $Annees = $this->createQueryBuilder('g')
+        ->andWhere('g.type = :type')
+        ->setParameter('type', "CM")
+        ->getQuery()
+        ->getResult();
+
+        return $Annees ;
+    }
+
+    public function findBySAC($semester, $campain) {
+        // Obtenir les TP en fonction du semestre et de la campagne
+        $Tps = $this->createQueryBuilder('g')
+        ->andWhere('g.campain = :campain', 'g.semester = :semester')
+        ->setParameter('campain', $campain)
+        ->setParameter('semester', $semester)
+        ->getQuery()
+        ->getResult();
+
+        dd($Tps);
+        
+        return $Tps;
+    }
+
     // /**
     //  * @return Group[] Returns an array of Group objects
     //  */

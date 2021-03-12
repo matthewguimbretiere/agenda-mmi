@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\Group;
 use App\Entity\Module;
 use App\Entity\Teacher;
+use App\Entity\Liens;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -237,6 +238,7 @@ class AppFixtures extends Fixture
         $this->loadModule($manager);
         $this->loadTeacher($manager);
         $this->loadTask($manager);
+        $this->loadLiens($manager);
     }
 
     public function loadGroup(ObjectManager $manager)
@@ -251,6 +253,12 @@ class AppFixtures extends Fixture
                       -> setCampain($group["campain"]);
             $manager ->persist($theGroup);
             $this -> addReference("theGroup-$i",$theGroup);
+            if ($group["type"] == "TP") {
+              $this -> addReference("theTP-$i",$theGroup);
+            }
+            if ($group["type"] == "TD") {
+              $this -> addReference("theTD-$i",$theGroup);
+            }
         }
         $manager->flush();
 
@@ -329,6 +337,21 @@ class AppFixtures extends Fixture
             $manager ->persist($theTache);
         }
         $manager->flush();
+    }
+
+    public function loadLiens(ObjectManager $manager)
+    {
+      $nb = 7;
+      for ($i=3; $i < 7; $i++) {
+        $max = $nb+2;
+        for ($nb; $nb < $max; $nb++) { 
+          $theLien = new Liens ();
+          $theLien -> setTP($this->getReference("theTP-$nb"));
+          $theLien -> setTD($this->getReference("theTD-$i"));
+          $manager ->persist($theLien);
+        }
+      }
+      $manager->flush();
     }
 
 }
