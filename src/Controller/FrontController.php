@@ -22,7 +22,7 @@ class FrontController extends AbstractController
         $Annees = $groupRepository->findYear();
         $TPs = [];
         foreach ($Annees as $Annee) {
-            dd($Annee);
+            dd($Annee.'semester');
             $TPs[] = $groupRepository->findBySAC($Annee['semester'], $Annee['campain']);
         }
 
