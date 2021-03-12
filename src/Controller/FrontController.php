@@ -22,17 +22,30 @@ class FrontController extends AbstractController
         $Annees = $groupRepository->findYear();
         $TPs = [];
         foreach ($Annees as $Annee) {
-            $TPs['TP'] = $groupRepository->findBySAC($Annee->getSemester(), $Annee->getCampain());
+            array_push($TPs, $groupRepository->findBySAC($Annee->getSemester(), $Annee->getCampain()));
         }
 
-        $Liens = [];
+        $vraiTp = [];
         foreach ($TPs as $semesters) {
             foreach ($semesters as $tp) {
-                $Liens[] = $liensRepository->findBy(["TP"=>$tp->getId()]);
+                array_push($vraiTp, [
+                    "id" => $tp->getId(),
+                    "name" => $tp->getName(),
+                    "type" => $tp->getType(),
+                    "semester" => $tp->getSemester(),
+                    "campain" => $tp->getCampain(),
+                    "tasks" => $tp->getTasks(),
+                    "liens" => $liensRepository->findBy(['TP' => $tp->getId()])
+                ]);
             }
         }
 
-        dd($Liens);
+        // Un grand tableau
+        $grandTableau = [];
+
+        $grandTableau["annes"] = $Annees;
+        $grandTableau["nbAnnes"] = count($Annees);
+        $grandTableau["tps"] = $vraiTp;
 
         return $this->render('front/index.html.twig', [
             'groupes' => $groupRepository->findYear(),
