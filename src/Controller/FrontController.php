@@ -46,7 +46,7 @@ class FrontController extends AbstractController
         $grandTableau["annes"] = $Annees;
         $grandTableau["nbAnnes"] = count($Annees);
         $grandTableau["tps"] = $vraiTp;
-
+        
         return $this->render('front/index.html.twig', [
             'groupes' => $groupRepository->findYear(),
         ]);
