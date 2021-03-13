@@ -43,12 +43,12 @@ class FrontController extends AbstractController
         // Un grand tableau
         $grandTableau = [];
 
-        $grandTableau["annes"] = $Annees;
-        $grandTableau["nbAnnes"] = count($Annees);
+        $grandTableau["annees"] = $Annees;
+        $grandTableau["nbAnnees"] = count($Annees);
         $grandTableau["tps"] = $vraiTp;
         
         return $this->render('front/index.html.twig', [
-            'groupes' => $groupRepository->findYear(),
+            'donnees' => $grandTableau,
         ]);
     }
 
