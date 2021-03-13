@@ -45,6 +45,11 @@ class Group
      */
     private $tasks;
 
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();

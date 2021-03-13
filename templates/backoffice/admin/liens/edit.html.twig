@@ -1,0 +1,9 @@
+{% extends 'backoffice/layout.html.twig' %}
+{% block suite_body %}
+    <h1>Edition d'un groupe</h1>
+    {{form_start(formLiens)}}
+    {{form_errors(formLiens)}}
+    {{form_widget(formLiens)}}
+    <button>Enregistrer le groupe</button>
+    {{form_end(formLiens)}}
+{% endblock %}

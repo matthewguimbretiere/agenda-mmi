@@ -2,58 +2,80 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Module;
+use App\Form\ModulesType;
+use App\Repository\ModuleRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BackModuleController extends AbstractController
 {
     /**
-     * @Route("/admin/back-user", name="back-user", methods={"GET"})
+     * @Route("/admin/back-modules", name="back-modules", methods={"GET"})
      */
-    public function list(): Response
+    public function list(ModuleRepository $moduleRepository): Response
     {
-        return $this->render('backoffice/admin/user/list.html.twig', [
-            'controller_name' => 'AdminController',
+        $modules = $moduleRepository->findAll();
+
+        dd($modules);
+        
+        return $this->render('backoffice/admin/modules/list.html.twig', [
+            'modules' => $modules,
         ]);
     }
     /**
-     * @Route("/admin/back-user/add", name="back-user-add", methods={"GET"})
+     * @Route("/admin/back-modules/add", name="back-modules-add", methods={"GET", "POST"})
      */
-    public function add(): Response
+    public function add(Request $request, EntityManagerInterface $em): Response
     {
-        return $this->render('backoffice/admin/user/index.html.twig', [
-            'controller_name' => 'AdminController',
+        $modules = new Module();
+        $formModules = $this->createForm(ModulesType::class, $modules, ["method" => 'POST', "action" => '/admin/back-modules/add']);
+        $formModules->handleRequest($request);
+        if ($formModules->isSubmitted() && $formModules->isValid()) {
+            $modules = $formModules->getData();
+            $em->persist($modules);
+            $em->flush();
+            $this->addFlash('info', 'Succès !');
+            return $this->redirectToRoute('back-modules');
+        }
+
+        return $this->render('backoffice/admin/modules/add.html.twig', [
+            'formModules' => $formModules->createView(),
         ]);
     }
+    
     /**
-     * @Route("/admin/back-user/save", name="back-user-save", methods={"POST"})
+     * @Route("/admin/back-modules/edit/{id}", name="back-modules-edit", methods={"GET", "POST"})
      */
-    public function save(): Response
+    public function edit(ModuleRepository $moduleRepository, $id, Request $request, EntityManagerInterface $em): Response
     {
-        return $this->redirectToRoute('back-user');
-    }
-    /**
-     * @Route("/admin/back-user/edit/{id}", name="back-user-edit", methods={"GET"})
-     */
-    public function edit(): Response
-    {
-        return $this->render('backoffice/admin/user/index.html.twig', [
-            'controller_name' => 'AdminController',
+        $theModule = $moduleRepository->find($id);
+
+        $formModules = $this->createForm(ModulesType::class, $theModule, ["method" => 'POST', "action" => '/admin/back-modules/edit/'.$id]);
+        $formModules->handleRequest($request);
+        if ($formModules->isSubmitted() && $formModules->isValid()) {
+            $theModule = $formModules->getData();
+            $em->persist($theModule);
+            $em->flush();
+            $this->addFlash('info', 'Succès !');
+            return $this->redirectToRoute('back-modules');
+        }
+
+        return $this->render('backoffice/admin/modules/edit.html.twig', [
+            'formModules' => $formModules->createView(),
         ]);
     }
+    
     /**
-     * @Route("/admin/back-user/update/{id}", name="back-user-update", methods={"GET", "POST" })
+     * @Route("/admin/back-modules/delete/{id}", name="back-modules-delete", methods={"GET", "DELETE"})
      */
-    public function update(): Response
+    public function delete(Module $module, EntityManagerInterface $em): Response
     {
-        return $this->redirectToRoute('back-user');
-    }
-    /**
-     * @Route("/admin/back-user/delete/{id}", name="back-user-delete", methods={"GET", "DELETE"})
-     */
-    public function delete(): Response
-    {
-        return $this->redirectToRoute('back-user');
+        $em->remove($module);
+        $em->flush();
+        return $this->redirectToRoute('back-modules');
     }
 }

@@ -1,0 +1,9 @@
+{% extends 'backoffice/layout.html.twig' %}
+{% block suite_body %}
+    <h1>Ajout d'un groupe</h1>
+    {{form_start(formGroup)}}
+    {{form_errors(formGroup)}}
+    {{form_widget(formGroup)}}
+    <button>Enregistrer le groupe</button>
+    {{form_end(formGroup)}}
+{% endblock %}

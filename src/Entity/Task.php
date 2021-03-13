@@ -55,6 +55,11 @@ class Task
         // $this->module = new ArrayCollection();
         $this->groupes = new ArrayCollection();
     }
+    
+    public function __toString(): string
+    {
+        return $this->description;
+    }
 
     public function getId(): ?int
     {

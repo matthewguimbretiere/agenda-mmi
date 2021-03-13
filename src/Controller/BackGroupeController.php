@@ -2,58 +2,80 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Group;
+use App\Form\GroupType;
+use App\Repository\GroupRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BackGroupeController extends AbstractController
 {
     /**
-     * @Route("/admin/back-user", name="back-user", methods={"GET"})
+     * @Route("/admin/back-group", name="back-group", methods={"GET"})
      */
-    public function list(): Response
+    public function list(GroupRepository $groupRepository): Response
     {
-        return $this->render('backoffice/admin/user/list.html.twig', [
-            'controller_name' => 'AdminController',
+        $groups = $groupRepository->findAll();
+
+        dd($groups);
+        
+        return $this->render('backoffice/admin/group/list.html.twig', [
+            'groups' => $groups,
         ]);
     }
     /**
-     * @Route("/admin/back-user/add", name="back-user-add", methods={"GET"})
+     * @Route("/admin/back-group/add", name="back-group-add", methods={"GET", "POST"})
      */
-    public function add(): Response
+    public function add(Request $request, EntityManagerInterface $em): Response
     {
-        return $this->render('backoffice/admin/user/index.html.twig', [
-            'controller_name' => 'AdminController',
+        $group = new Group();
+        $formGroup = $this->createForm(GroupType::class, $group, ["method" => 'POST', "action" => '/admin/back-group/add']);
+        $formGroup->handleRequest($request);
+        if ($formGroup->isSubmitted() && $formGroup->isValid()) {
+            $group = $formGroup->getData();
+            $em->persist($group);
+            $em->flush();
+            $this->addFlash('info', 'Succès !');
+            return $this->redirectToRoute('back-group');
+        }
+
+        return $this->render('backoffice/admin/group/add.html.twig', [
+            'formGroup' => $formGroup->createView(),
         ]);
     }
+    
     /**
-     * @Route("/admin/back-user/save", name="back-user-save", methods={"POST"})
+     * @Route("/admin/back-group/edit/{id}", name="back-group-edit", methods={"GET", "POST"})
      */
-    public function save(): Response
+    public function edit(GroupRepository $groupRepository, $id, Request $request, EntityManagerInterface $em): Response
     {
-        return $this->redirectToRoute('back-user');
-    }
-    /**
-     * @Route("/admin/back-user/edit/{id}", name="back-user-edit", methods={"GET"})
-     */
-    public function edit(): Response
-    {
-        return $this->render('backoffice/admin/user/index.html.twig', [
-            'controller_name' => 'AdminController',
+        $theGroup = $groupRepository->find($id);
+
+        $formGroup = $this->createForm(GroupType::class, $theGroup, ["method" => 'POST', "action" => '/admin/back-group/edit/'.$id]);
+        $formGroup->handleRequest($request);
+        if ($formGroup->isSubmitted() && $formGroup->isValid()) {
+            $theGroup = $formGroup->getData();
+            $em->persist($theGroup);
+            $em->flush();
+            $this->addFlash('info', 'Succès !');
+            return $this->redirectToRoute('back-group');
+        }
+
+        return $this->render('backoffice/admin/group/edit.html.twig', [
+            'formGroup' => $formGroup->createView(),
         ]);
     }
+    
     /**
-     * @Route("/admin/back-user/update/{id}", name="back-user-update", methods={"GET", "POST" })
+     * @Route("/admin/back-group/delete/{id}", name="back-group-delete", methods={"GET", "DELETE"})
      */
-    public function update(): Response
+    public function delete(Group $group, EntityManagerInterface $em): Response
     {
-        return $this->redirectToRoute('back-user');
-    }
-    /**
-     * @Route("/admin/back-user/delete/{id}", name="back-user-delete", methods={"GET", "DELETE"})
-     */
-    public function delete(): Response
-    {
-        return $this->redirectToRoute('back-user');
+        $em->remove($group);
+        $em->flush();
+        return $this->redirectToRoute('back-group');
     }
 }

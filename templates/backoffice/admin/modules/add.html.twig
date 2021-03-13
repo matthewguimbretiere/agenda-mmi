@@ -1,1 +1,9 @@
 {% extends 'backoffice/layout.html.twig' %}
+{% block suite_body %}
+    <h1>Ajout d'un module</h1>
+    {{form_start(formModules)}}
+    {{form_errors(formModules)}}
+    {{form_widget(formModules)}}
+    <button>Enregistrer le groupe</button>
+    {{form_end(formModules)}}
+{% endblock %}
