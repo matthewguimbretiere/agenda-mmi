@@ -39,6 +39,11 @@ class Module
      */
     private $teachers;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->teachers = new ArrayCollection();
