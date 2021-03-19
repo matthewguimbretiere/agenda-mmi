@@ -1,1 +1,9 @@
 {% extends 'backoffice/layout.html.twig' %}
+{% block suite_body %}
+    <h1>Edition d'un professeur</h1>
+    {{form_start(formTeacher)}}
+    {{form_errors(formTeacher)}}
+    {{form_widget(formTeacher)}}
+    <button>Enregistrer le groupe</button>
+    {{form_end(formTeacher)}}
+{% endblock %}
