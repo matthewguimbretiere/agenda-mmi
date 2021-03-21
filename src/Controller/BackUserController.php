@@ -29,8 +29,6 @@ class BackUserController extends AbstractController
     {
         $writers = $userRepository->findAll();
 
-        dd($writers);
-
         return $this->render('backoffice/admin/users/list.html.twig', [
             'writers' => $writers,
         ]);

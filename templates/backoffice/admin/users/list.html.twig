@@ -1,1 +1,18 @@
 {% extends 'backoffice/layout.html.twig' %}
+{% block suite_title %}liste des utilisateurs{% endblock %}
+{% block suite_body %}
+<h1>Liste des utilisateurs</h1>
+<ul>
+{% for user in writers %}
+<li>
+<span>Id : {{user.id}} </span>
+<span>/ Email : {{user.email}}</span>
+<span>/ Roles : 
+{% for role in user.roles %}
+<span>{{role}},</span>
+{% endfor %}
+</span>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}

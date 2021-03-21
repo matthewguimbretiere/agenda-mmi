@@ -19,8 +19,6 @@ class BackLiensController extends AbstractController
     public function list(LiensRepository $liensRepository): Response
     {
         $liens = $liensRepository->findAll();
-
-        dd($liens);
         
         return $this->render('backoffice/admin/liens/list.html.twig', [
             'liens' => $liens,

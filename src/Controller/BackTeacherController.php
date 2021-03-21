@@ -19,8 +19,6 @@ class BackTeacherController extends AbstractController
     public function list(TeacherRepository $teacherRepository): Response
     {
         $teachers = $teacherRepository->findAll();
-
-        dd($teachers);
         
         return $this->render('backoffice/admin/teachers/list.html.twig', [
             'teachers' => $teachers,

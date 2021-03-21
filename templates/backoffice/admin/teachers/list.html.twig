@@ -1,1 +1,13 @@
 {% extends 'backoffice/layout.html.twig' %}
+{% block suite_title %}liste des professeurs{% endblock %}
+{% block suite_body %}
+<h1>Liste des professeurs</h1>
+<ul>
+{% for teacher in teachers %}
+<li>
+<span>Id :  {{teacher.id}}</span>
+<span>/ Nom :  {{teacher.name}}</span>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}

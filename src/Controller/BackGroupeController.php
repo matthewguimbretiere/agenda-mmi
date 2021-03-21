@@ -19,8 +19,6 @@ class BackGroupeController extends AbstractController
     public function list(GroupRepository $groupRepository): Response
     {
         $groups = $groupRepository->findAll();
-
-        dd($groups);
         
         return $this->render('backoffice/admin/group/list.html.twig', [
             'groups' => $groups,

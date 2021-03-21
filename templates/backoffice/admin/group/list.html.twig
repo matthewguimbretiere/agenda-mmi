@@ -1,1 +1,16 @@
 {% extends 'backoffice/layout.html.twig' %}
+{% block suite_title %}liste des groupe{% endblock %}
+{% block suite_body %}
+<h1>Liste des groupe</h1>
+<ul>
+{% for group in groups %}
+<li>
+<span>Id : {{group.id}}</span>
+<span>/ Name :  {{group.name}}</span>
+<span>/ Type :  {{group.type}}</span>
+<span>/ Semester :  {{group.semester}}</span>
+<span>/ Campain :  {{group.campain}}</span>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}

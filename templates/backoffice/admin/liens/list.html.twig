@@ -1,1 +1,14 @@
 {% extends 'backoffice/layout.html.twig' %}
+{% block suite_title %}liste des liens{% endblock %}
+{% block suite_body %}
+<h1>Liste des liens</h1>
+<ul>
+{% for lien in liens %}
+<li>
+<span>Id :  {{lien.id}}</span>
+<span>TP :  {{lien.tp.name}}</span>
+<span>TD :  {{lien.td.name}}</span>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}
