@@ -1,1 +1,9 @@
 {% extends 'backoffice/layout.html.twig' %}
+{% block suite_body %}
+    <h1>Édition d'un utilisateur</h1>
+    {{form_start(formUser)}}
+    {{form_errors(formUser)}}
+    {{form_widget(formUser)}}
+    <button>Enregistrer les modification</button>
+    {{form_end(formUser)}}
+{% endblock %}

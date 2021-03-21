@@ -1,4 +1,9 @@
 {% extends 'backoffice/layout.html.twig' %}
 {% block suite_body %}
-{{form(formUser)}}
+    <h1>Ajout d'un utilisateur</h1>
+    {{form_start(formUser)}}
+    {{form_errors(formUser)}}
+    {{form_widget(formUser)}}
+    <button>Enregistrer l'utilisateur</button>
+    {{form_end(formUser)}}
 {% endblock %}

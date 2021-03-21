@@ -11,9 +11,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class BackUserController extends AbstractController
 {
+    private $passwordEncoder;
+    // injecter la classe de cryptage dans le service
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+    $this->passwordEncoder = $passwordEncoder;
+    }
+ 
     /**
      * @Route("/admin/back-user", name="back-user", methods={"GET"})
      */
@@ -21,21 +29,26 @@ class BackUserController extends AbstractController
     {
         $writers = $userRepository->findAll();
 
+        dd($writers);
+
         return $this->render('backoffice/admin/users/list.html.twig', [
             'writers' => $writers,
         ]);
     }
     /**
-     * @Route("/admin/back-user/add", name="back-user-add", methods={"GET"})
+     * @Route("/admin/back-user/add", name="back-user-add", methods={"GET", "POST"})
      */
     public function add(Request $request, EntityManagerInterface $em): Response
     {
-        $user = new User();
-        $formUser = $this->createForm(UserType::class, $user);
+        $theUser = new User();
+        $formUser = $this->createForm(UserType::class, $theUser);
         $formUser->handleRequest($request);
         if ($formUser->isSubmitted() && $formUser->isValid()) {
             $user = $formUser->getData();
-            $em->persist($user);
+            $theUser -> setEmail($user->getEmail())
+            ->setPassword($this->passwordEncoder->encodePassword($theUser, $user->getPassword()))
+            ->setRoles($user->getRoles());
+            $em->persist($theUser);
             $em->flush();
             $this->addFlash('info', 'Succès !');
             return $this->redirectToRoute('back-user');
@@ -46,33 +59,33 @@ class BackUserController extends AbstractController
         ]);
     }
     /**
-     * @Route("/admin/back-user/save", name="back-user-save", methods={"POST"})
+     * @Route("/admin/back-user/edit/{id}", name="back-user-edit", methods={"GET", "POST"})
      */
-    public function save(): Response
+    public function edit(UserRepository $userRepository, $id, Request $request, EntityManagerInterface $em): Response
     {
-        return $this->redirectToRoute('back-user');
-    }
-    /**
-     * @Route("/admin/back-user/edit/{id}", name="back-user-edit", methods={"GET"})
-     */
-    public function edit(): Response
-    {
-        return $this->render('backoffice/admin/user/index.html.twig', [
-            'controller_name' => 'AdminController',
+        $theUser = $userRepository->find($id);
+
+        $formUser = $this->createForm(UserType::class, $theUser, ["method" => 'POST', "action" => '/admin/back-user/edit/'.$id]);
+        $formUser->handleRequest($request);
+        if ($formUser->isSubmitted() && $formUser->isValid()) {
+            $theUser = $formUser->getData();
+            $em->persist($theUser);
+            $em->flush();
+            $this->addFlash('info', 'Succès !');
+            return $this->redirectToRoute('back-user');
+        }
+
+        return $this->render('backoffice/admin/users/edit.html.twig', [
+            'formUser' => $formUser->createView(),
         ]);
-    }
-    /**
-     * @Route("/admin/back-user/update/{id}", name="back-user-update", methods={"GET", "POST" })
-     */
-    public function update(): Response
-    {
-        return $this->redirectToRoute('back-user');
     }
     /**
      * @Route("/admin/back-user/delete/{id}", name="back-user-delete", methods={"GET", "DELETE"})
      */
-    public function delete(): Response
+    public function delete(User $user, EntityManagerInterface $em): Response
     {
+        $em->remove($user);
+        $em->flush();
         return $this->redirectToRoute('back-user');
     }
 }
