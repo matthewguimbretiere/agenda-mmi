@@ -6,18 +6,25 @@
   height: 100%;
 }
 
-.devoir ul {
-  padding: 0.625rem;
-  border: 2px solid white;
+.devoir table {
   border-radius: 0.3125rem;
-  min-width: 35vw;
+  text-align: center;
+  border-collapse: initial;
 }
 
-.devoir ul li {
-  display: flex;
-  justify-content: space-between;
+.devoir tr {
+  height: 5vh;
 }
 
-.devoir ul li span {
-  margin: 0 10px;
+#grp {
+  font-size: 3rem;
+}
+
+.description th {
+  border: 3px solid darkgray;
+}
+
+.devoir td {
+  min-width: 20vw;
+  border: 1px solid grey;
 }

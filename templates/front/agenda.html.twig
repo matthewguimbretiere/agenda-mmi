@@ -4,13 +4,30 @@
 {% block stylesheets %}<link href="{{ asset('css/agenda.css') }}" rel="stylesheet">{% endblock %}
 {% block body %}
 <section class="devoir">
+<table>
 {% for group in groups %}
-    <h1>{{ group.0.name }}</h1>
-    <ul class="list-unstyled">
+    <thead>
+    <tr>
+    <th colspan="4" id="grp">{{ group.0.name }}</th>
+    </tr>
+    <tr class="description">
+    <th>Travail</th>
+    <th>Matière</th>
+    <th>Pour le</th>
+    <th>Professeur</th>
+    </tr>
+    </thead>
+    <tbody>
     {% for task in group.0.tasks %}
-        <li><span>{{ task.description }}</span><span>{{task.module.name}}</span><span>{{ task.deadline|date("m/d/Y")}}</span><span>{{ task.teacher.name }}</span></li>
+        <tr>
+        <td>{{ task.description }}</td>
+        <td>{{task.module.name}}</td>
+        <td>{{ task.deadline|date("m/d/Y")}}</td>
+        <td>{{ task.teacher.name }}</td>
+        </tr>
     {% endfor %}
-    </ul>
+    </tbody>
 {% endfor %}
+</table>
 </section>
 {% endblock %}

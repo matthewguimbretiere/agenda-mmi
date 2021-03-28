@@ -1,17 +1,18 @@
 {% extends 'backoffice/layout.html.twig' %}
 {% block suite_title %}liste des modules{% endblock %}
+{% block suite_stylesheets %}<link href="{{ asset('css/listes.css') }}" rel="stylesheet">{% endblock %}
 {% block suite_body %}
 <h1>Liste des modules</h1>
-<a href="{{path("back-modules-add")}}">Ajouter un module <i class="fas fa-plus"></i></i></a>
-<ul>
+<a href="{{path("back-modules-add")}}" type="button" class="btn btn-outline-light" id="add">Ajouter un module <i class="fas fa-plus"></i></i></a>
+<u class="list-group">
 {% for module in modules %}
-<li>
-<span>Id :  {{module.id}}</span>
-<span>/ Nom :  {{module.name}}</span>
-<span>/ Semestre :  {{module.semester}}</span>
-<span>/ Campagne :  {{module.campain}}</span>
-<a href="{{path("back-modules-edit", {"id":module.id})}}">Éditer <i class="fas fa-edit"></i></a>
-<a href="{{path("back-modules-delete", {"id":module.id})}}">Supprimer <i class="fas fa-trash-alt"></i></a>
+<li class="list-group-item bg-dark text-light">
+<span># {{module.id}} | </span>
+<span>Nom :  {{module.name}} | </span>
+<span>Semestre :  {{module.semester}} | </span>
+<span>Campagne :  {{module.campain}}</span>
+<a href="{{path("back-modules-edit", {"id":module.id})}}" type="button" class="btn btn-outline-light">Éditer <i class="fas fa-edit"></i></a>
+<a href="{{path("back-modules-delete", {"id":module.id})}}" type="button" class="btn btn-outline-danger">Supprimer <i class="fas fa-trash-alt"></i></a>
 </span>
 </li>
 {% endfor %}
