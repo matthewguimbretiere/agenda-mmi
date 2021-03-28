@@ -2,6 +2,7 @@
 {% block suite_title %}liste des groupe{% endblock %}
 {% block suite_body %}
 <h1>Liste des groupe</h1>
+<a href="{{path("back-group-add")}}">Ajouter un groupe <i class="fas fa-plus"></i></i></a>
 <ul>
 {% for group in groups %}
 <li>
@@ -10,6 +11,8 @@
 <span>/ Type :  {{group.type}}</span>
 <span>/ Semester :  {{group.semester}}</span>
 <span>/ Campain :  {{group.campain}}</span>
+<a href="{{path("back-group-edit", {"id":group.id})}}">Éditer <i class="fas fa-edit"></i></a>
+<a href="{{path("back-group-delete", {"id":group.id})}}">Supprimer <i class="fas fa-trash-alt"></i></a>
 </li>
 {% endfor %}
 </ul>

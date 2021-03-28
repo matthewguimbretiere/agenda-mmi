@@ -1,0 +1,23 @@
+.devoir {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.devoir ul {
+  padding: 0.625rem;
+  border: 2px solid white;
+  border-radius: 0.3125rem;
+  min-width: 35vw;
+}
+
+.devoir ul li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.devoir ul li span {
+  margin: 0 10px;
+}

@@ -2,12 +2,16 @@
 
 {% block title %}Hello FrontController!{% endblock %}
 
-{% block body %}
+{% block stylesheets %}
+<link href="{{ asset('css/index.css') }}" rel="stylesheet">
+{% endblock %}
 
+{% block body %}
+<section class="section">
 {% for i in 1..donnees.nbAnnees %}
     <h1><a href="{{ path('front-cm-unique', {'campain': donnees.annees[i - 1].campain , 'semester': donnees.annees[i - 1].semester }) }}">{{ donnees.annees[i - 1].name }}</a></h1>
     {% set thisSemester = donnees.annees[i - 1].semester %}
-    <ul>
+    <ul class="list-unstyled">
     {% for tp in donnees.tps %}
         {% if tp.semester == thisSemester %}
             <li><a href="{{ path('front-tp-all', {'campain': tp.campain , 'semester': tp.semester ,'td': tp.liens[0].TD.name , 'tp': tp.name}) }}">{{ tp.name }}</a></li>
@@ -15,18 +19,5 @@
     {% endfor %}
     </ul>
 {% endfor %}
-
+</section>
 {% endblock %}
-{#
- {% for années in mmi %}
-    <section id="{{années}}">
-        {% for tp in années %}
-            <button><a href="">{{tp}}</a></button>
-        {% endfor %}
-    </section>
- {% endfor %}
-
- 
-{% for annees in donnees.annees %}
-
-#}

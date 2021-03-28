@@ -2,6 +2,7 @@
 {% block suite_title %}liste des utilisateurs{% endblock %}
 {% block suite_body %}
 <h1>Liste des utilisateurs</h1>
+<a href="{{path("back-user-add")}}">Ajouter un utilisateurs <i class="fas fa-plus"></i></i></a>
 <ul>
 {% for user in writers %}
 <li>
@@ -12,6 +13,8 @@
 <span>{{role}},</span>
 {% endfor %}
 </span>
+<a href="{{path("back-user-edit", {"id":user.id})}}">Éditer <i class="fas fa-edit"></i></a>
+<a href="{{path("back-user-delete", {"id":user.id})}}">Supprimer <i class="fas fa-trash-alt"></i></a>
 </li>
 {% endfor %}
 </ul>

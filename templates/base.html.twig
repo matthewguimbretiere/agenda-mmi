@@ -6,8 +6,40 @@
         {% block stylesheets %}{% endblock %}
 
         {% block javascripts %}{% endblock %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/4020e9bdd2.js" crossorigin="anonymous"></script>
+        <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            padding-top:5rem;
+            height: 100%;
+            background-color: rgb(20, 20, 20);
+            color: white;
+        }
+
+        header a:last-child:hover {
+            color: white;
+        }
+
+
+        </style>
     </head>
     <body>
+    <header class="navbar navbar-dark bg-dark fixed-top" role="navigation">
+    <a class="navbar-brand d-flex align-items-center justify-content-around" href="{{ path('front-index') }}">
+        <img src="{{ asset('img/logo.png') }}" alt="logo timming" width="50" height="50" class="d-inline-block align-top">
+        <span class="ml-3">TiMMIng</span>
+    </a>
+    <a class="nav-link navbar-text h4" href="{{ path('app_login') }}">Connexion <i class="fas fa-sign-in-alt"></i></a>
+    </header>
         {% block body %}{% endblock %}
     </body>
 </html>

@@ -1,1 +1,25 @@
 {% extends 'backoffice/layout.html.twig' %}
+{% block suite_title %}liste des taches{% endblock %}
+{% block suite_body %}
+<h1>Liste des devoir</h1>
+<a href="{{path("back-task-add")}}">Ajouter un devoir <i class="fas fa-plus"></i></i></a>
+<ul>
+{% for task in tasks %}
+<li>
+<span>Id :  {{task.id}}</span>
+<span>/ Description :  {{task.description}}</span>
+<span>/ Teacher :  {{task.teacher}}</span>
+<span>/ Deadline :  {{task.deadline | date("d/m/Y")}}</span>
+<span>/ Visible :  {{task.visible}}</span>
+<span>/ Module :  {{task.module}}</span>
+<span>/ Groupes : 
+{% for group in task.groupes %}
+<span>{{group.name}},</span>
+{% endfor %}
+</span>
+<a href="{{path("back-task-edit", {"id":task.id})}}">Éditer <i class="fas fa-edit"></i></a>
+<a href="{{path("back-task-delete", {"id":task.id})}}">Supprimer <i class="fas fa-trash-alt"></i></a>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}

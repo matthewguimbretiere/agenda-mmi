@@ -2,6 +2,7 @@
 {% block suite_title %}liste des modules{% endblock %}
 {% block suite_body %}
 <h1>Liste des modules</h1>
+<a href="{{path("back-modules-add")}}">Ajouter un module <i class="fas fa-plus"></i></i></a>
 <ul>
 {% for module in modules %}
 <li>
@@ -9,6 +10,8 @@
 <span>/ Nom :  {{module.name}}</span>
 <span>/ Semestre :  {{module.semester}}</span>
 <span>/ Campagne :  {{module.campain}}</span>
+<a href="{{path("back-modules-edit", {"id":module.id})}}">Éditer <i class="fas fa-edit"></i></a>
+<a href="{{path("back-modules-delete", {"id":module.id})}}">Supprimer <i class="fas fa-trash-alt"></i></a>
 </span>
 </li>
 {% endfor %}

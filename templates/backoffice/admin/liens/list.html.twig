@@ -2,12 +2,15 @@
 {% block suite_title %}liste des liens{% endblock %}
 {% block suite_body %}
 <h1>Liste des liens</h1>
+<a href="{{path("back-liens-add")}}">Ajouter un lien <i class="fas fa-plus"></i></i></a>
 <ul>
 {% for lien in liens %}
 <li>
 <span>Id :  {{lien.id}}</span>
 <span>TP :  {{lien.tp.name}}</span>
 <span>TD :  {{lien.td.name}}</span>
+<a href="{{path("back-liens-edit", {"id":lien.id})}}">Éditer <i class="fas fa-edit"></i></a>
+<a href="{{path("back-liens-delete", {"id":lien.id})}}">Supprimer <i class="fas fa-trash-alt"></i></a>
 </li>
 {% endfor %}
 </ul>

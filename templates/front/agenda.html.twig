@@ -1,22 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FrontController!{% endblock %}
-
+{% block title %}Les devoirs{% endblock %}
+{% block stylesheets %}<link href="{{ asset('css/agenda.css') }}" rel="stylesheet">{% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
+<section class="devoir">
 {% for group in groups %}
     <h1>{{ group.0.name }}</h1>
-    <ul>
+    <ul class="list-unstyled">
     {% for task in group.0.tasks %}
-        <li>{{ task.description }}</li>
-        {{ task.teacher.name }}
+        <li><span>{{ task.description }}</span><span>{{task.module.name}}</span><span>{{ task.deadline|date("m/d/Y")}}</span><span>{{ task.teacher.name }}</span></li>
     {% endfor %}
     </ul>
 {% endfor %}
-</div>
+</section>
 {% endblock %}

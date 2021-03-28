@@ -19,8 +19,6 @@ class BackTaskController extends AbstractController
     public function list(TaskRepository $taskRepository): Response
     {
         $tasks = $taskRepository->findAll();
-
-        dd($tasks);
         
         return $this->render('backoffice/writer/task/list.html.twig', [
             'tasks' => $tasks,

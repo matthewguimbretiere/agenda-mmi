@@ -1,0 +1,21 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: white;
+}
+
+.section h1 a {
+  font-size: 3rem;
+}
+
+.section a {
+  color: white;
+  font-size: 2rem;
+}
+.section a:hover {
+  color: grey;
+  text-decoration: none;
+}

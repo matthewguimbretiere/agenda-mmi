@@ -2,11 +2,14 @@
 {% block suite_title %}liste des professeurs{% endblock %}
 {% block suite_body %}
 <h1>Liste des professeurs</h1>
+<a href="{{path("back-teacher-add")}}">Ajouter un professeur <i class="fas fa-plus"></i></i></a>
 <ul>
 {% for teacher in teachers %}
 <li>
 <span>Id :  {{teacher.id}}</span>
 <span>/ Nom :  {{teacher.name}}</span>
+<a href="{{path("back-teacher-edit", {"id":teacher.id})}}">Éditer <i class="fas fa-edit"></i></a>
+<a href="{{path("back-teacher-delete", {"id":teacher.id})}}">Supprimer <i class="fas fa-trash-alt"></i></a>
 </li>
 {% endfor %}
 </ul>
