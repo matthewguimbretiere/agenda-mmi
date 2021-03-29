@@ -3,23 +3,25 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
 }
 
 .devoir table {
-  border-radius: 0.3125rem;
+  /* border-radius: 0.3125rem; */
   text-align: center;
-  border-collapse: initial;
+  max-width: 50%;
+  margin-bottom: 5vh;
+  /*border-collapse: initial;*/
 }
-
+/* (il ne vaut mieux pas mettre de hauteur fixe car ça peut cacher du contenu sans le vouloir 
 .devoir tr {
   height: 5vh;
 }
+*/
 
 #grp {
   font-size: 3rem;
 }
-
+/*
 .description th {
   border: 3px solid darkgray;
 }
@@ -28,3 +30,4 @@
   min-width: 20vw;
   border: 1px solid grey;
 }
+*/

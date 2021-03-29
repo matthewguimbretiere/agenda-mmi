@@ -4,30 +4,56 @@
 {% block stylesheets %}<link href="{{ asset('css/agenda.css') }}" rel="stylesheet">{% endblock %}
 {% block body %}
 <section class="devoir">
-<table>
-{% for group in groups %}
-    <thead>
-    <tr>
-    <th colspan="4" id="grp">{{ group.0.name }}</th>
-    </tr>
-    <tr class="description">
-    <th>Travail</th>
-    <th>Matière</th>
-    <th>Pour le</th>
-    <th>Professeur</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for task in group.0.tasks %}
-        <tr>
-        <td>{{ task.description }}</td>
-        <td>{{task.module.name}}</td>
-        <td>{{ task.deadline|date("m/d/Y")}}</td>
-        <td>{{ task.teacher.name }}</td>
-        </tr>
+    <div class="btn-group btn-group-toggle mt-2 mb-3" data-toggle="buttons">
+        {% if datas.tp != "null" and datas.td != "null" %}
+            <label class="btn btn-secondary active">
+                <a href="{{ path('front-tp-all', {"campain":datas.campain, "semester": datas.semester, "td": datas.td, "tp": datas.tp}) }}" class="text-white"> Tous </a> 
+            </label> 
+            <label class="btn btn-secondary active">
+                <a href="{{ path('front-tp-unique', {"campain":datas.campain, "semester": datas.semester, "tp": datas.tp}) }}" class="text-white"> TP </a> 
+            </label> 
+            <label class="btn btn-secondary active">
+                <a href="{{ path('front-td-unique', {"campain":datas.campain, "semester": datas.semester, "td": datas.td}) }}" class="text-white"> TD </a> 
+            </label> 
+        {% endif %}
+        {% if datas.tp != "null" and datas.td == "null" %}
+            <label class="btn btn-secondary active">
+                <a href="{{ path('front-tp-unique', {"campain":datas.campain, "semester": datas.semester, "tp": datas.tp}) }}" class="text-white"> TP </a> 
+            </label> 
+        {% endif %}
+        {% if datas.tp == "null" and datas.td != "null" %}
+            <label class="btn btn-secondary active">
+                <a href="{{ path('front-td-unique', {"campain":datas.campain, "semester": datas.semester, "td": datas.td}) }}" class="text-white"> TD </a> 
+            </label> 
+        {% endif %}
+        <label class="btn btn-secondary active">
+            <a href="{{ path('front-cm-unique', {"campain":datas.campain, "semester": datas.semester}) }}" class="text-white"> CM </a> 
+        </label> 
+    </div>
+    {% for group in groups %}
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th colspan="4" id="grp">{{ group.0.name }}</th>
+            </tr>
+            <tr class="description">
+                <th scope="col">Travail</th>
+                <th scope="col">Matière</th>
+                <th scope="col">Pour le</th>
+                <th scope="col">Professeur</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for task in group.0.tasks %}
+            <tr>
+                <td scope="row">{{ task.description }}</td>
+                <td>{{task.module.name}}</td>
+                <td>{{ task.deadline|date("m/d/Y")}}</td>
+                <td>{{ task.teacher.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>        
+    </table>
     {% endfor %}
-    </tbody>
-{% endfor %}
-</table>
 </section>
 {% endblock %}

@@ -10,14 +10,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class BackModuleController extends AbstractController
 {
     /**
      * @Route("/admin/back-modules", name="back-modules", methods={"GET"})
      */
-    public function list(ModuleRepository $moduleRepository): Response
+    public function list(AuthenticationUtils $authenticationUtils, ModuleRepository $moduleRepository): Response
     {
+        
+        dd($authenticationUtils);
         $modules = $moduleRepository->findAll();
         
         return $this->render('backoffice/admin/modules/list.html.twig', [
