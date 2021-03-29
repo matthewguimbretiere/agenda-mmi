@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class BackTaskController extends AbstractController
 {
     /**
-     * @Route("/admin/back-task", name="back-task", methods={"GET"})
+     * @Route("/writer/back-task", name="back-task", methods={"GET"})
      */
     public function list(TaskRepository $taskRepository): Response
     {
@@ -25,12 +25,12 @@ class BackTaskController extends AbstractController
         ]);
     }
     /**
-     * @Route("/admin/back-task/add", name="back-task-add", methods={"GET", "POST"})
+     * @Route("/writer/back-task/add", name="back-task-add", methods={"GET", "POST"})
      */
     public function add(Request $request, EntityManagerInterface $em): Response
     {
         $task = new Task();
-        $formTask = $this->createForm(TaskType::class, $task, ["method" => 'POST', "action" => '/admin/back-task/add']);
+        $formTask = $this->createForm(TaskType::class, $task, ["method" => 'POST', "action" => '/writer/back-task/add']);
         $formTask->handleRequest($request);
         if ($formTask->isSubmitted() && $formTask->isValid()) {
             $task = $formTask->getData();
@@ -45,13 +45,13 @@ class BackTaskController extends AbstractController
         ]);
     }
     /**
-     * @Route("/admin/back-task/edit/{id}", name="back-task-edit", methods={"GET", "POST"})
+     * @Route("/writer/back-task/edit/{id}", name="back-task-edit", methods={"GET", "POST"})
      */
     public function edit(TaskRepository $taskRepository, $id, Request $request, EntityManagerInterface $em): Response
     {
         $theTask = $taskRepository->find($id);
 
-        $formTask = $this->createForm(TaskType::class, $theTask, ["method" => 'POST', "action" => '/admin/back-task/edit/'.$id]);
+        $formTask = $this->createForm(TaskType::class, $theTask, ["method" => 'POST', "action" => '/writer/back-task/edit/'.$id]);
         $formTask->handleRequest($request);
         if ($formTask->isSubmitted() && $formTask->isValid()) {
             $theTask = $formTask->getData();
@@ -66,7 +66,7 @@ class BackTaskController extends AbstractController
         ]);
     }
     /**
-     * @Route("/admin/back-task/delete/{id}", name="back-task-delete", methods={"GET", "DELETE"})
+     * @Route("/writer/back-task/delete/{id}", name="back-task-delete", methods={"GET", "DELETE"})
      */
     public function delete(Task $task, EntityManagerInterface $em): Response
     {

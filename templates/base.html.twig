@@ -38,7 +38,53 @@
         <img src="{{ asset('img/logo.png') }}" alt="logo timming" width="50" height="50" class="d-inline-block align-top">
         <span class="ml-3">TiMMIng</span>
     </a>
-    <a class="nav-link navbar-text h4" href="{{ path('app_login') }}">Connexion <i class="fas fa-sign-in-alt"></i></a>
+    {% set verif = false %}
+    {% if app.user != "" %}
+        {% for role in app.user.roles %}
+            {% if role == "ROLE_ADMIN" and verif == false %}
+                {# Affichage de tous les boutons pour le super admin #}
+                <nav>
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link navbar-text" href="{{ path('back-task') }}">Les devoirs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link navbar-text" href="{{ path('back-group') }}">Les groupes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link navbar-text" href="{{ path('back-liens') }}">Les liens</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link navbar-text" href="{{ path('back-modules') }}">Les modules</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link navbar-text" href="{{ path('back-teacher') }}">Les profs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link navbar-text" href="{{ path('back-user') }}">Les admins</a>
+                        </li>
+                    </ul>
+                </nav>
+                <a class="nav-link navbar-text h4" href="{{ path('app_logout') }}">Déconnexion <i class="fas fa-sign-out-alt"></i></a>
+
+                {% set verif = true %}
+            {% elseif role == "ROLE_WRITER" and verif == false %}
+                {# Affichage de tous les boutons pour l'admin writer #}
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="{{ path('back-task') }}">Ajouter un devoir</a>
+                        </li>
+                    </ul>
+                </nav>
+                <a class="nav-link navbar-text h4" href="{{ path('app_logout') }}">Déconnexion <i class="fas fa-sign-out-alt"></i></a>
+                
+                {% set verif = true %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <a class="nav-link navbar-text h4" href="{{ path('app_login') }}">Connexion <i class="fas fa-sign-in-alt"></i></a>
+    {% endif %}
     </header>
         {% block body %}{% endblock %}
     </body>
