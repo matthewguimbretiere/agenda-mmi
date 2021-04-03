@@ -30,3 +30,9 @@
   border: 1px solid grey;
 }
 */
+
+.tableau_devoir {
+  width: 80vw;
+  max-height: 60vh;
+  margin: 0 auto;
+}
