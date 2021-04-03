@@ -41,6 +41,9 @@
                 <th scope="col">Matière</th>
                 <th scope="col">Pour le</th>
                 <th scope="col">Professeur</th>
+                {% if app.user != "" %}
+                    <th scope="col">Options</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -50,6 +53,12 @@
                 <td>{{task.module.name}}</td>
                 <td>{{ task.deadline|date("m/d/Y")}}</td>
                 <td>{{ task.teacher.name }}</td>
+                {% if app.user != "" %}
+                    <td>
+                        <a href="{{path("back-task-edit", {"id":task.id})}}" type="button" class="btn btn-outline-light">Éditer <i class="fas fa-edit"></i></a>
+                        <a href="{{path("back-task-delete", {"id":task.id})}}" type="button" class="btn btn-outline-danger">Supprimer <i class="fas fa-trash-alt"></i></a>
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>        

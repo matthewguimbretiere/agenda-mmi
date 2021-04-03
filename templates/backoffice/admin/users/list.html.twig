@@ -2,21 +2,40 @@
 {% block suite_title %}liste des utilisateurs{% endblock %}
 {% block suite_stylesheets %}<link href="{{ asset('css/listes.css') }}" rel="stylesheet">{% endblock %}
 {% block suite_body %}
-<h1>Liste des utilisateurs</h1>
-<a href="{{path("back-user-add")}}" type="button" class="btn btn-outline-light" id="add">Ajouter un utilisateurs <i class="fas fa-plus"></i></i></a>
-<ul class="list-group">
-{% for user in writers %}
-<li class="list-group-item bg-dark text-light">
-<span># {{user.id}} | </span>
-<span>Email : {{user.email}} |</span>
-<span>Roles : 
-{% for role in user.roles %}
-<span>{{role}},</span>
-{% endfor %}
-</span>
-<a href="{{path("back-user-edit", {"id":user.id})}}" type="button" class="btn btn-outline-light">Éditer <i class="fas fa-edit"></i></a>
-<a href="{{path("back-user-delete", {"id":user.id})}}" type="button" class="btn btn-outline-danger">Supprimer <i class="fas fa-trash-alt"></i></a>
-</li>
-{% endfor %}
-</ul>
+<div class="list_backoffice">
+    <h1>Liste des utilisateurs</h1>
+    <a href="{{path("back-user-add")}}" type="button" class="btn btn-outline-light" id="add">Ajouter un utilisateurs <i class="fas fa-plus"></i></i></a>
+    <table class="table table-striped table-dark table_list_backoffice">
+        <thead>
+            <tr class="description">
+                <th scope="col">#</th>
+                <th scope="col">Email</th>
+                <th scope="col">Roles</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in writers %}
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                    {% set a = 0 %}
+                    {% for role in user.roles %}
+                        {% set a = a + 1 %}
+                        {{role}}
+                        {% if a != user.roles|length %}
+                            ,
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{path("back-user-edit", {"id":user.id})}}" type="button" class="btn btn-outline-light">Éditer <i class="fas fa-edit"></i></a>
+                    <a href="{{path("back-user-delete", {"id":user.id})}}" type="button" class="btn btn-outline-danger">Supprimer <i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

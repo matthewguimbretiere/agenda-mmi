@@ -1,9 +1,12 @@
 {% extends 'backoffice/layout.html.twig' %}
+{% block suite_stylesheets %}<link href="{{ asset('css/listes.css') }}" rel="stylesheet">{% endblock %}
 {% block suite_body %}
+<div class="form_backoffice">
     <h1>Edition d'un module</h1>
     {{form_start(formModules)}}
     {{form_errors(formModules)}}
     {{form_widget(formModules)}}
-    <button>Enregistrer le groupe</button>
+    <button class="btn btn-secondary">Enregistrer le groupe</button>
     {{form_end(formModules)}}
+</div>
 {% endblock %}

@@ -71,9 +71,9 @@
             {% elseif role == "ROLE_WRITER" and verif == false %}
                 {# Affichage de tous les boutons pour l'admin writer #}
                 <nav>
-                    <ul>
-                        <li>
-                            <a href="{{ path('back-task') }}">Ajouter un devoir</a>
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link navbar-text" href="{{ path('back-task-add') }}">Ajouter un devoir</a>
                         </li>
                     </ul>
                 </nav>

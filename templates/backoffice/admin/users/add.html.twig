@@ -1,9 +1,12 @@
 {% extends 'backoffice/layout.html.twig' %}
+{% block suite_stylesheets %}<link href="{{ asset('css/listes.css') }}" rel="stylesheet">{% endblock %}
 {% block suite_body %}
+<div class="form_backoffice">
     <h1>Ajout d'un utilisateur</h1>
     {{form_start(formUser)}}
     {{form_errors(formUser)}}
     {{form_widget(formUser)}}
-    <button>Enregistrer l'utilisateur</button>
+    <button class="btn btn-secondary">Enregistrer l'utilisateur</button>
     {{form_end(formUser)}}
+</div>
 {% endblock %}

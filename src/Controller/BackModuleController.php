@@ -20,7 +20,6 @@ class BackModuleController extends AbstractController
     public function list(AuthenticationUtils $authenticationUtils, ModuleRepository $moduleRepository): Response
     {
         
-        dd($authenticationUtils);
         $modules = $moduleRepository->findAll();
         
         return $this->render('backoffice/admin/modules/list.html.twig', [

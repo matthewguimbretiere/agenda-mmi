@@ -12,11 +12,10 @@
   margin-bottom: 5vh;
   /*border-collapse: initial;*/
 }
-/* (il ne vaut mieux pas mettre de hauteur fixe car ça peut cacher du contenu sans le vouloir 
+/* (il ne vaut mieux pas mettre de hauteur fixe car ça peut cacher du contenu sans le vouloir */
 .devoir tr {
-  height: 5vh;
+  min-height: 5vh;
 }
-*/
 
 #grp {
   font-size: 3rem;
