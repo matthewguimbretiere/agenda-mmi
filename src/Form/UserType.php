@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Group;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -25,7 +27,7 @@ class UserType extends AbstractType
                 ],
                 'multiple'=> true])
             ->add('password', PasswordType::class)
-            ->add('groupes', EntityType::class, ['class' => Group::class,'multiple'=> true,'expanded'=>false, 'label'=> 'Groupes : '])
+            ->add('groupe', EntityType::class, ['class' => Group::class,'multiple'=> true,'expanded'=>false, 'label'=> 'Groupes : '])
         ;
     }
 

@@ -10,6 +10,7 @@
             <tr class="description">
                 <th scope="col">#</th>
                 <th scope="col">Nom</th>
+                <th scope="col">Devoirs</th>
                 <th scope="col">Options</th>
             </tr>
         </thead>
@@ -18,6 +19,7 @@
                 <tr>
                     <td>{{teacher.id}}</td>
                     <td>{{teacher.name}}</td>
+                    <td> <button class="btn btn-outline-primary btn_task_teacher" data-teacher="{{ teacher.name }}">Voir les devoirs attribués</div> </td>
                     <td>
                         <a href="{{path("back-teacher-edit", {"id":teacher.id})}}" type="button" class="btn btn-outline-light">Éditer <i class="fas fa-edit"></i></a>
                         <a href="{{path("back-teacher-delete", {"id":teacher.id})}}" type="button" class="btn btn-outline-danger">Supprimer <i class="fas fa-trash-alt"></i></a>
@@ -27,4 +29,29 @@
         </tbody>
     </table>
 </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+    window.addEventListener('DOMContentLoaded', function(){
+        var btn_task_teacher = document.querySelectorAll('.btn_task_teacher');
+
+        btn_task_teacher.forEach(e => {
+            e.addEventListener('click', e => {
+                
+                var name_ens = e.target.getAttribute('data-teacher');
+                var verif = false;
+                var texte = "";
+                {% for task in tasks %}
+                    if("{{ task.teacher.name}}" == name_ens) {  
+                        verif = true;                      
+                        texte += "{{ task.description }}, " ;
+                    }
+                {% endfor %}
+                if(verif == true) {
+                    alert(texte);
+                }
+            })
+        })
+    });
+    </script>
 {% endblock %}

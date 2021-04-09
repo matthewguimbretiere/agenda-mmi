@@ -116,7 +116,7 @@ class AppFixtures extends Fixture
             "visible" => true
         ],
         [
-            "description" => "Faire l'exo 2",
+            "description" => "Regarder un documentaire sur les dauphins",
             "visible" => true
         ],
         [
@@ -147,85 +147,85 @@ class AppFixtures extends Fixture
       
       const GROUPES = [
         [
-          "name" => "MMI1",
+          "name" => "MMI - 1ère année",
           "type" => "CM",
           "semester" => "S1",
           "campain" => "2020-2021"
         ],
         [
-          "name" => "MMI2",
+          "name" => "MMI - 2eme année",
           "type" => "CM",
           "semester" => "S3",
           "campain" => "2020-2021"
         ],
         [
-          "name" => "TDA",
+          "name" => "TDA - 1ère année",
           "type" => "TD",
           "semester" => "S1",
           "campain" => "2020-2021"
         ],
         [
-          "name" => "TDB",
+          "name" => "TDB - 1ère année",
           "type" => "TD",
           "semester" => "S1",
           "campain" => "2020-2021"
         ],
         [
-          "name" => "TDA",
+          "name" => "TDA - 2eme année",
           "type" => "TD",
           "semester" => "S3",
           "campain" => "2020-2021"
         ],
         [
-          "name" => "TDB",
+          "name" => "TDB - 2eme année",
           "type" => "TD",
           "semester" => "S3",
           "campain" => "2020-2021"
         ],
         [
-          "name" => "TP1",
+          "name" => "TP1 - 1ère année",
           "type" => "TP",
           "semester" => "S1",
           "campain" => "2020-2021"
         ], 
         [
-          "name" => "TP2",
+          "name" => "TP2 - 1ère année",
           "type" => "TP",
           "semester" => "S1",
           "campain" => "2020-2021"
         ],
         [
-          "name" => "TP3",
+          "name" => "TP3 - 1ère année",
           "type" => "TP",
           "semester" => "S1",
           "campain" => "2020-2021"
         ],
         [
-          "name" => "TP4",
+          "name" => "TP4 - 1ère année",
           "type" => "TP",
           "semester" => "S1",
           "campain" => "2020-2021"
         ],
         [
-          "name" => "TP1",
+          "name" => "TP1 - 2eme année",
           "type" => "TP",
           "semester" => "S3",
           "campain" => "2020-2021"
         ],
         [
-          "name" => "TP2",
+          "name" => "TP2 - 2eme année",
           "type" => "TP",
           "semester" => "S3",
           "campain" => "2020-2021"
         ],
         [
-          "name" => "TP3",
+          "name" => "TP3 - 2eme année",
           "type" => "TP",
           "semester" => "S3",
           "campain" => "2020-2021"
         ],
         [
-          "name" => "TP4",
+          "name" => "TP4 - 2eme année",
           "type" => "TP",
           "semester" => "S3",
           "campain" => "2020-2021"

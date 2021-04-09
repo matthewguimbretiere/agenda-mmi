@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Teacher;
 use App\Form\TeacherType;
+use App\Repository\TaskRepository;
 use App\Repository\TeacherRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,12 +17,14 @@ class BackTeacherController extends AbstractController
     /**
      * @Route("/admin/back-teacher", name="back-teacher", methods={"GET"})
      */
-    public function list(TeacherRepository $teacherRepository): Response
+    public function list(TeacherRepository $teacherRepository, TaskRepository $taskRepository): Response
     {
         $teachers = $teacherRepository->findAll();
+        $tasks = $taskRepository->findAll();
         
         return $this->render('backoffice/admin/teachers/list.html.twig', [
             'teachers' => $teachers,
+            'tasks' => $tasks
         ]);
     }
     /**

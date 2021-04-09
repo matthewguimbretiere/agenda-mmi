@@ -10,18 +10,39 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Security;
 
 class BackTaskController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        // Avoid calling getUser() in the constructor: auth may not
+        // be complete yet. Instead, store the entire Security object.
+        $this->security = $security;
+    }
+    
     /**
      * @Route("/writer/back-task", name="back-task", methods={"GET"})
      */
     public function list(TaskRepository $taskRepository): Response
     {
+        $tab = array();
         $tasks = $taskRepository->findAll();
+        $user =  $this->security->getUser();
+        foreach($tasks as $task) {
+            foreach($task->getGroupes() as $groupe ) {
+                foreach ($user->getGroupe() as $userGroup) {                
+                    if($groupe == $userGroup) {
+                        $tab[] = $task;
+                    }
+                }
+            }
+        }
         
         return $this->render('backoffice/writer/task/list.html.twig', [
-            'tasks' => $tasks,
+            'tasks' => $tab,
         ]);
     }
     /**

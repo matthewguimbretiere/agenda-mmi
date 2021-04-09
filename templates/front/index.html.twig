@@ -9,7 +9,7 @@
 {% block body %}
 <section class="section">
 {% for i in 1..donnees.nbAnnees %}
-    <h1><a href="{{ path('front-cm-unique', {'campain': donnees.annees[i - 1].campain , 'semester': donnees.annees[i - 1].semester }) }}">{{ donnees.annees[i - 1].name }}</a></h1>
+    <h1>{#<a href="{{ path('front-cm-unique', {'campain': donnees.annees[i - 1].campain , 'semester': donnees.annees[i - 1].semester }) }}">#}{{ donnees.annees[i - 1].name }}{#</a>#}</h1>
     {% set thisSemester = donnees.annees[i - 1].semester %}
     <ul class="list-unstyled">
     {% for tp in donnees.tps %}

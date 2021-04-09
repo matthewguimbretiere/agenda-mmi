@@ -6,6 +6,8 @@ use App\Entity\Task;
 use App\Entity\Group;
 use App\Entity\Module;
 use App\Entity\Teacher;
+use App\Repository\GroupRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -29,6 +31,8 @@ class TaskType extends AbstractType
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $user = $this->security->getUser();
+
         $builder
             ->setMethod($options["method"])
             ->setAction($options["action"])
@@ -37,7 +41,9 @@ class TaskType extends AbstractType
             ->add('visible', CheckboxType::class, ['label'=> 'Visible : ', 'attr'=>['value'=>'1']])
             ->add('teacher', EntityType::class, ['class' => Teacher::class,'multiple'=> false,'expanded'=>false, 'label'=> 'Professeur : '])
             ->add('module', EntityType::class, ['class' => Module::class,'multiple'=> false,'expanded'=>false, 'label'=> 'Module : '])
-            ->add('groupes', EntityType::class, ['class' => Group::class,'multiple'=> true,'expanded'=>false, 'label'=> 'Groupes : '])
+            ->add('groupes', EntityType::class, ['class' => Group::class,
+                'choices' => $user->getGroupe(),
+                'multiple'=> true,'expanded'=>false, 'label'=> 'Groupes : '])
         ;
     }
 
