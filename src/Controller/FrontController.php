@@ -55,9 +55,6 @@ class FrontController extends AbstractController
 
     /**
      * @Route("/{campain}/{semester}/td/{td}/tp/{tp}", name="front-tp-all")
-     * @Route("/{campain}/{semester}/td/{td}/tp/null", name="front-td-unique")
-     * @Route("/{campain}/{semester}/td/null/tp/{tp}", name="front-tp-unique")
-     * @Route("/{campain}/{semester}/td/null/tp/null", name="front-cm-unique")
      */
     public function agenda($campain, $semester, $td = null, $tp = null, TaskRepository $taskRepository, GroupRepository $groupRepository)
     {
@@ -67,15 +64,6 @@ class FrontController extends AbstractController
         if( $td != "null" AND $tp != "null" ) {
             $results[] = $groupRepository->findByTp( $campain, $semester, $tp);
             $results[] = $groupRepository->findByTd( $campain, $semester, $td);
-            $results[] = $groupRepository->findByCm( $campain, $semester );
-        // Si on demande que les Tp
-        } elseif ( $td == "null" && $tp != "null" ) {
-            $results[] = $groupRepository->findByTp( $campain, $semester, $tp);
-        // Si on demande que les Td
-        } elseif ( $tp == "null" && $td != "null" ) {
-            $results[] = $groupRepository->findByTd( $campain, $semester, $td);
-        // Si on demande que les CM
-        } else {
             $results[] = $groupRepository->findByCm( $campain, $semester );
         }
         

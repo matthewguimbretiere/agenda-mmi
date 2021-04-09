@@ -8,6 +8,11 @@
 {% block body %}
 <section class="tableau_devoir">
     <div class="btn-group btn-group-toggle mt-2 mb-3" data-toggle="buttons">
+            <button class="btn btn-secondary active" id="btn-all"> Tous </button> 
+            <button class="btn btn-secondary" id="btn-tp"> TP </button>  
+            <button class="btn btn-secondary" id="btn-td"> TD </button> 
+            <button class="btn btn-secondary" id="btn-cm"> CM </button>
+    {#
         {% if datas.tp != "null" and datas.td != "null" %}
             <label class="btn btn-secondary active">
                 <a href="{{ path('front-tp-all', {"campain":datas.campain, "semester": datas.semester, "td": datas.td, "tp": datas.tp}) }}" class="text-white"> Tous </a> 
@@ -32,6 +37,7 @@
         <label class="btn btn-secondary active">
             <a href="{{ path('front-cm-unique', {"campain":datas.campain, "semester": datas.semester}) }}" class="text-white"> CM </a> 
         </label> 
+        #}
     </div>
     {#
     {% for group in groups %}
@@ -96,7 +102,6 @@
                 }
             {% endfor %}
         {% endfor %}
-        console.log(devoirs);
 
 
         var calendarEl = document.getElementById('calendar');
@@ -119,7 +124,77 @@
             events: devoirs
         });
         calendar.render();
-      });
 
+
+    const all = document.getElementById('btn-all');
+    const tp = document.getElementById('btn-tp');
+    const td = document.getElementById('btn-td');
+    const cm = document.getElementById('btn-cm');
+
+    all.addEventListener('click', function () {calendarRender('all')});
+    tp.addEventListener('click', function () {calendarRender('TP')});
+    td.addEventListener('click', function () {calendarRender('TD')});
+    cm.addEventListener('click', function () {calendarRender('CM')});
+
+    function calendarRender(grp){
+        console.log(grp)
+        // Date du jour
+        var ladate=new Date()
+        var jour = ladate.toISOString();
+        jour = jour.substring(0,10);
+
+        // Liste des devoirs 
+        var devoirs = [];
+        if(grp == 'all'){
+        {% for group in groups %}
+            {% for task in group.0.tasks %}   
+                if ("{{ task.visible}}" == 1 ) {
+                var titre = "{{ group.0.name }} - {{ task.description }} - {{ task.module.name }} - {{ task.teacher.name }}";
+               devoirs.push({
+                   title: titre,
+                   start: '{{task.deadline|date("Y-m-d")}}'
+               });
+                }
+            {% endfor %}
+        {% endfor %}
+        }else{
+        {% for group in groups %}
+            if('{{group.0.type}}' == grp){
+            {% for task in group.0.tasks %}   
+                if ("{{ task.visible}}" == 1 ) {
+                var titre = "{{ group.0.name }} - {{ task.description }} - {{ task.module.name }} - {{ task.teacher.name }}";
+               devoirs.push({
+                   title: titre,
+                   start: '{{task.deadline|date("Y-m-d")}}'
+               });
+                }
+            {% endfor %}
+            }
+        {% endfor %}
+        }
+
+
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            // handleWindowResize: true,
+            height: 700,
+            eventClick: function(info) {
+                alert(info.event.title);
+            },
+            initialDate: jour,
+            dayMaxEvents: true,
+            selectable: true,
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+
+            events: devoirs
+        });
+        calendar.render();
+    }
+});
     </script>
 {% endblock %}
