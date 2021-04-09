@@ -45,6 +45,11 @@ class Group
      */
     private $tasks;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="groupe")
+     */
+    private $users;
+
     public function __toString(): string
     {
         return $this->name;
@@ -53,6 +58,7 @@ class Group
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,6 +136,33 @@ class Group
     {
         if ($this->tasks->removeElement($task)) {
             $task->removeGroupe($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addGroupe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeGroupe($this);
         }
 
         return $this;

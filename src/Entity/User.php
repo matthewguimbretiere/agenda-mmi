@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -33,6 +35,16 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Group::class, inversedBy="users")
+     */
+    private $groupe;
+
+    public function __construct()
+    {
+        $this->groupe = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -113,5 +125,29 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Group[]
+     */
+    public function getGroupe(): Collection
+    {
+        return $this->groupe;
+    }
+
+    public function addGroupe(Group $groupe): self
+    {
+        if (!$this->groupe->contains($groupe)) {
+            $this->groupe[] = $groupe;
+        }
+
+        return $this;
+    }
+
+    public function removeGroupe(Group $groupe): self
+    {
+        $this->groupe->removeElement($groupe);
+
+        return $this;
     }
 }
