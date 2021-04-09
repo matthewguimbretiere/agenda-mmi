@@ -316,6 +316,7 @@ class AppFixtures extends Fixture
     {
         $nb = 0;
         foreach (self::TACHES as $tache) {
+            $day = rand(1,30);
             $aEns = rand(1,count(self::ENSEIGNANTS));
             $aMod = rand(1,count(self::MODULES));
             $nbGroup = rand(1,3);
@@ -323,7 +324,7 @@ class AppFixtures extends Fixture
             $nb++;
             $theTache = new Task ();
             $theTache -> setDescription($tache["description"])
-            ->setDeadline(new \DateTime('2020-08-10'))
+            ->setDeadline(new \DateTime('2021-04-' . $day))
             ->setVisible($tache["visible"])
             ->setTeacher($this->getReference("theEnseignant-$aEns"))
             ->setModule($this->getReference("theModule-$aMod"));
@@ -353,5 +354,4 @@ class AppFixtures extends Fixture
       }
       $manager->flush();
     }
-
 }

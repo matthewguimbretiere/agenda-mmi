@@ -83,21 +83,40 @@
         var jour = ladate.toISOString();
         jour = jour.substring(0,10);
 
+        // Liste des devoirs 
+        var devoirs = [];
+        {% for group in groups %}
+            {% for task in group.0.tasks %}   
+                if ("{{ task.visible}}" == 1 ) {
+                var titre = "{{ group.0.name }} - {{ task.description }} - {{ task.module.name }} - {{ task.teacher.name }}";
+               devoirs.push({
+                   title: titre,
+                   start: '{{task.deadline|date("Y-m-d")}}'
+               });
+                }
+            {% endfor %}
+        {% endfor %}
+        console.log(devoirs);
+
+
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
+            // handleWindowResize: true,
+            height: 700,
+            eventClick: function(info) {
+                alert(info.event.title);
+            },
             initialDate: jour,
+            dayMaxEvents: true,
+            selectable: true,
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
             },
 
-            events: [
-            {
-                title: 'All Day Event',
-                start: '2021-03-01'
-            }]
+            events: devoirs
         });
         calendar.render();
       });
