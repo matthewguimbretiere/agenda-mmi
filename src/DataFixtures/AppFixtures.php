@@ -274,6 +274,20 @@ class AppFixtures extends Fixture
             ->setPassword($this->passwordEncoder->encodePassword($theUser,$user["password"]))
             ->setRoles([$user["roles"]]);
             $manager ->persist($theUser);
+            $isAdmin = 0;
+            if ($user["roles"]=="ROLE_ADMIN") {
+              $isAdmin = 1;
+            }
+            if ($isAdmin == 1) {
+              $a = 0;
+              foreach (self::GROUPES as $groupe) {
+                $a++;
+                $theUser -> addGroupe($this->getReference("theGroup-$a"));
+              }
+            }else{
+              $r = rand(1,count(self::GROUPES));
+              $theUser -> addGroupe($this->getReference("theGroup-$r"));
+            }
         }
         $manager->flush();
         

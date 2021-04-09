@@ -25,6 +25,7 @@ class UserType extends AbstractType
                 ],
                 'multiple'=> true])
             ->add('password', PasswordType::class)
+            ->add('groupes', EntityType::class, ['class' => Group::class,'multiple'=> true,'expanded'=>false, 'label'=> 'Groupes : '])
         ;
     }
 
